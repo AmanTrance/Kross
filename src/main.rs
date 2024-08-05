@@ -1,22 +1,13 @@
+mod repository;
+mod models;
 #[allow(unused_imports)]
 use rocket::serde::json::Json;
 use rocket::serde::json::{json, Value};
 use rocket::http::Method;
 use rocket_cors::{AllowedOrigins, CorsOptions};
-use serde::{Deserialize, Serialize};
-
+use models::models::User;
 
 #[macro_use] extern crate rocket;
-
-#[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
-struct User{
-  id: u32,
-  name: String,
-  balance: u32,
-  above_18: bool
-}
-
-static mut DATA: Vec<User> = Vec::new();
 
 #[get("/")]
 fn index() -> String{
@@ -34,15 +25,13 @@ fn name() -> Value{
 
 #[post("/user", format="json", data="<input>")]
 fn user(input: Json<User>) -> (){
-  let temp = input.into_inner();
-  unsafe{DATA.push(temp);}
+  let _temp = input.into_inner();
+  todo!()
 }
 
 #[get("/userdata")]
-fn userdata() -> Value{
-  unsafe{
-    json!({"data": DATA})
-  }
+fn userdata() -> (){
+  todo!()
 }
 
 #[launch]
