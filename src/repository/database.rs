@@ -1,12 +1,11 @@
 extern crate mongodb;
-
-use mongodb::{bson::extjson::de::Error, results::InsertOneResult, sync::{Client, Collection}};
-use rocket::{State};
-
-use crate::User;
+use std::fmt::Debug;
+#[allow(unused_imports)]
+use mongodb::{results::InsertOneResult, sync::{Client, Collection}};
+use serde::{Deserialize, Serialize};
 
 pub struct MongoClient{
-    pub collection: Collection<User>
+    pub client: Client
 }
 
 impl MongoClient{
@@ -16,11 +15,14 @@ impl MongoClient{
         .ok()
         .unwrap();
 
-        let db = client.database("Interface");
-        let collect: Collection<User> = db.collection("User");
-        MongoClient { collection: collect }
+        MongoClient { client }
     }
-    pub async fn create_user(&self, user: User) -> Result<InsertOneResult, mongodb::error::Error>{
-        self.collection.insert_one(user).await
+    pub async fn create_user<'r, T>(&self,data: T, db_name: &str, collection: &str) -> Result<InsertOneResult, mongodb::error::Error>
+    where T: Debug + Serialize + Deserialize<'r> + Send + Sync{
+        self.client
+        .database(db_name)
+        .collection::<T>(collection)
+        .insert_one(data)
+        .await
     }
 }

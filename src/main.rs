@@ -1,6 +1,5 @@
 mod repository;
 mod models;
-use mongodb::results::InsertOneResult;
 use repository::database::MongoClient;
 #[allow(unused_imports)]
 use rocket::serde::json::Json;
@@ -29,7 +28,7 @@ fn name() -> Value{
 
 #[post("/user", format="json", data="<input>")]
 async fn user(db: &State<MongoClient>, input: Json<User>) -> Status{
-  db.create_user(input.into_inner())
+  db.create_user(input.into_inner(), "Interface", "User")
   .await
   .expect("Can't create a user");
   Status::new(201)
