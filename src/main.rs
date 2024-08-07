@@ -34,15 +34,24 @@ async fn user(db: &State<MongoClient>, input: Json<User>) -> Status{
   Status::new(201)
 }
 
-#[get("/userdata")]
-fn userdata() -> (){
-  todo!()
+#[get("/userdata/<id>")]
+async fn userdata(db: &State<MongoClient>, id: u32) -> Value{
+  let user =  db.find_user("Interface", "User", id)
+  .await
+  .expect("User not Found");
+  if user.is_none(){
+    json!({
+      "Error": "user not Found"
+  })}
+  else{
+    json!(user)
+  }
 }
 
 #[launch]
 fn rocket() -> _ {
     let cors = CorsOptions::default()
-    .allowed_origins(AllowedOrigins::some_exact(&["http://localhost:5173"]))
+    .allowed_origins(AllowedOrigins::all())
     .allowed_methods(
         vec![Method::Get, Method::Post, Method::Patch, Method::Delete, Method::Options]
             .into_iter()
