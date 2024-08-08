@@ -1,8 +1,7 @@
 extern crate mongodb;
 
 use mongodb::bson::doc;
-#[allow(unused_imports)]
-use mongodb::{results::InsertOneResult, sync::{Client, Collection}};
+use mongodb::{results::InsertOneResult, sync::Client};
 
 use crate::models::models::User;
 
