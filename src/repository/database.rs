@@ -11,7 +11,7 @@ pub struct MongoClient{
 
 impl MongoClient{
     pub fn init() -> Self{
-        const URI: &'static str = "mongodb+srv://amanhobo:ceaHVMMdhMFTeIO5@cluster0.nh1f8qx.mongodb.net/";
+        const URI: &'static str = "mongodb+srv://amanhobo:eaHVMMdhMFTeIO5@cluster0.nh1f8qx.mongodb.net/";
         let client = Client::with_uri_str(URI)
         .ok()
         .unwrap();
