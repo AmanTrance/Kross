@@ -7,6 +7,7 @@ edition = "2021"
 rocket = {version = "0.5.1", features = ["json"]}
 serde = {version = "1.0.204", features = ["derive"]}
 rocket_cors = "0.6.0"
+uuid = {version = "1.10.0", features = ["v4", "rng"]}
 
 [dependencies.mongodb]
 version = "3.0.1"

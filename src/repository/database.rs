@@ -25,7 +25,7 @@ impl MongoClient{
         .insert_one(data)
         .await
     }
-    pub async fn find_user(&self, db_name: &str, collection: &str, id: u32) -> Result<std::option::Option<User>, mongodb::error::Error>{
+    pub async fn find_user(&self, db_name: &str, collection: &str, id: String) -> Result<std::option::Option<User>, mongodb::error::Error>{
         self.client
         .database(db_name)
         .collection::<User>(collection)

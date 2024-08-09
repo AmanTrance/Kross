@@ -1,60 +1,60 @@
 #form-box{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 #form{
-    background-color: black;
-    height: 600px; 
-    width: 600px;
-    border-radius: 30px;
-    border-style: solid;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color:black;
+    height:600px; 
+    width:600px;
+    border-radius:30px;
+    border-style:solid;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 #form:hover{
-    border-width: 5px;
+    border-width:5px;
     border-color:darkorchid;
 }
 
 #main-form{
-    height: 50%;
+    height:50%;
 }
 
 label{
-    color: white;
-    font-weight: bolder;
-    font-family: 'Segoe UI';
-    font-size: larger;
-    padding-left: 2px;
+    color:white;
+    font-weight:bolder;
+    font-family:'Segoe UI';
+    font-size:larger;
+    padding-left:2px;
 }
 
 input{
-    font-family: 'Segoe UI';
-    font-weight: bolder;
-    font-size: large;
-    padding-left: 5px;
-    height: 30px;
-    width: 400px;
-    margin-bottom: 40px;
-    border-radius: 10px;
+    font-family:'Segoe UI';
+    font-weight:bolder;
+    font-size:large;
+    padding-left:5px;
+    height:30px;
+    width:400px;
+    margin-bottom:40px;
+    border-radius:10px;
 }
 
 #save-btn{
-    margin-left: 35%;
-    padding-left: 0%;
+    margin-left:35%;
+    padding-left:0%;
     background-color:mediumturquoise;
-    height: 50px;
-    width: 100px;
-    border-radius: 25px;
-    border-style: solid;
+    height:50px;
+    width:100px;
+    border-radius:25px;
+    border-style:solid;
 }
 
 #save-btn:hover{
-    border-width: 2px;
+    border-width:2px;
     border-color:blue;
 }

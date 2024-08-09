@@ -15,7 +15,7 @@ pub fn index() -> String{
 }
 
 #[post("/user", format="json", data="<input>")]
-pub async fn user(db: &State<MongoClient>, input: Json<User>) -> Status{
+pub async fn create_user(db: &State<MongoClient>, input: Json<User>) -> Status{
   db.create_user(input.into_inner(), "Interface", "User")
   .await
   .expect("Can't create a user");
@@ -23,13 +23,13 @@ pub async fn user(db: &State<MongoClient>, input: Json<User>) -> Status{
 }
 
 #[get("/userdata/<id>")]
-pub async fn userdata(db: &State<MongoClient>, id: u32) -> Value{
+pub async fn get_user(db: &State<MongoClient>, id: String) -> Value{
   let user =  db.find_user("Interface", "User", id)
   .await
   .expect("User not Found");
   if user.is_none(){
     json!({
-      "Error": "user not Found"
+      "user": false
   })}
   else{
     json!(user)
@@ -37,7 +37,7 @@ pub async fn userdata(db: &State<MongoClient>, id: u32) -> Value{
 }
 
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
-pub async fn post_image(id: u32, file: Data<'_>) -> Result<Status, io::Error>{
+pub async fn post_image(id: String, file: Data<'_>) -> Result<Status, io::Error>{
   let img_path = format!("./temp/image{}.jpg", id);
   let _img_file = fs::File::create_new(Path::new(img_path.as_str()))?;
   let path: &Path = Path::new(img_path.as_str());
@@ -47,7 +47,7 @@ pub async fn post_image(id: u32, file: Data<'_>) -> Result<Status, io::Error>{
 } 
 
 #[get("/getimg/<id>")]
-pub async fn send_image(id: u32) -> Option<NamedFile>{
+pub async fn send_image(id: String) -> Option<NamedFile>{
   let path_str = format!("./temp/image{}.jpg", id);
   let path = Path::new(path_str.as_str());
   if path.exists(){

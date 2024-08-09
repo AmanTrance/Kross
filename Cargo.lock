@@ -1688,6 +1688,7 @@ dependencies = [
  "rocket",
  "rocket_cors",
  "serde",
+ "uuid",
 ]
 
 [[package]]
