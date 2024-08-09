@@ -11,16 +11,7 @@ use std::path::Path;
 
 #[get("/")]
 pub fn index() -> String{
-    String::from("Hello World!!\n This is a Rust Server.")
-}
-
-#[get("/name")]
-pub fn name() -> Value{
-  let name: &str = "Aman Kansal";
-  json!({
-    "name": name,
-    "id": 56
-  })
+    String::from("Hello World!!\nThis is a Rust Server.")
 }
 
 #[post("/user", format="json", data="<input>")]
@@ -47,8 +38,8 @@ pub async fn userdata(db: &State<MongoClient>, id: u32) -> Value{
 
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
 pub async fn post_image(id: u32, file: Data<'_>) -> Result<Status, io::Error>{
-  let _img_file = fs::File::create_new(Path::new(format!("./temp/image{}.jpg", id).as_str())).unwrap();
   let img_path = format!("./temp/image{}.jpg", id);
+  let _img_file = fs::File::create_new(Path::new(img_path.as_str()))?;
   let path: &Path = Path::new(img_path.as_str());
   let data = file.open(2_usize.mebibytes());
   data.into_file(path).await?;
