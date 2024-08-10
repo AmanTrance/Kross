@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Profile.css'
 
 function Profile() {
+  const [name, setName] = useState('Aman'); 
   const [icon, setIcon] = useState(null);
   const edit = (e) => {
     if (e.type === 'mouseover'){
@@ -15,6 +16,7 @@ function Profile() {
   }
 
   return (
+    <div className='sandwich'>
    <div id='profile-pic'> 
    <label htmlFor='upload' id='image'>
     <div id='label' onMouseOver={edit} onMouseOut={edit}>
@@ -22,6 +24,8 @@ function Profile() {
     </div>
    </label>
    <input type='file' id='upload'/>       
+   </div>
+   <span id='span'>Welcome {name}!</span>
    </div>
   )
 }

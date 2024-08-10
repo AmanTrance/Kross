@@ -1,5 +1,7 @@
 #app-div{
     height:100%;
     width:100%;
-    background-color:white;
+    background-image:url('https://images.pexels.com/photos/2098428/pexels-photo-2098428.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-repeat: no-repeat;
+    background-size:120%;
 }

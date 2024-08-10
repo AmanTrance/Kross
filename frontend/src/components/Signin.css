@@ -6,7 +6,7 @@
     align-items:center;
 }
 #form{
-    background-color:black;
+    background-color:transparent;
     height:600px; 
     width:600px;
     border-radius:30px;
@@ -14,11 +14,14 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    transition-property: inherit;
+    transition-duration: 500ms;
+    transition-timing-function:cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 
 #form:hover{
     border-width:5px;
-    border-color:darkorchid;
+    border-color:black;
 }
 
 #main-form{
@@ -26,10 +29,11 @@
 }
 
 label{
-    color:white;
-    font-weight:bolder;
+    color:black;
+    text-shadow: 2px 2px darkgrey;
+    font-weight:900;
     font-family:'Segoe UI';
-    font-size:larger;
+    font-size:x-large;
     padding-left:2px;
 }
 
