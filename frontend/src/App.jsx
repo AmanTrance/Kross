@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import './App.css'
-import { useNavigate } from 'react-router-dom'
+import Profile from './components/Profile.jsx'
 
 function App() {
-  const navigate = useNavigate()
   return (
-    <div id ='app-div' 
-    onClick={() => navigate('/')}>
+    <div id='app-div'>
+    <Profile/>
     </div>
   )
 }

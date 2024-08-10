@@ -1,0 +1,25 @@
+#profile-pic{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:60px;
+    width:60px;
+    border-radius:50px;
+    background-image:linear-gradient(cyan, lightblue);
+}
+
+#label{
+    height:35px;
+    width:50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#upload{
+    display:none;
+}
+
+#icon{
+    color:aliceblue;
+}
