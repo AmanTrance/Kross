@@ -25,7 +25,7 @@ fn rocket() -> _ {
     rocket::build()
     .manage(db)
     .attach(cors.to_cors().unwrap())
-    .mount("/", routes![index])
-    .mount("/", routes![user_sign_in, get_user])
-    .mount("/", routes![post_image, send_image])
+    .mount("/api", routes![index])
+    .mount("/api", routes![user_sign_in, get_user])
+    .mount("/api", routes![post_image, send_image])
 }

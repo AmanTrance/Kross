@@ -10,7 +10,7 @@ function Profile() {
 
   if(id !== null){
     useEffect(() => {
-      document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/getimg/${id}')`;
+      document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
     })
     
   }
@@ -33,7 +33,7 @@ function Profile() {
       return;
     }else{
       alert("Only Jpeg/jpg Files of max size 2Mb");
-      const response = await axios.post(`http://127.0.0.1:8000/image/${id}`, e.target.files[0], {headers:{
+      const response = await axios.post(`http://127.0.0.1:8000/api/image/${id}`, e.target.files[0], {headers:{
         'Content-type': 'image/jpeg'
       }});
     }

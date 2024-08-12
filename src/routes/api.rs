@@ -14,7 +14,7 @@ pub fn index() -> String{
     String::from("Hello World!!\nThis is a Rust Server.")
 }
 
-#[post("/user", format="application/x-www-form-urlencoded", data="<input>")]
+#[post("/user", format="application/json", data="<input>")]
 pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
   if db.user_exists("Interface", "User", input.clone().into_inner().email).await {
     if db.credentials_ok("Interface", "User", input.clone().into_inner().name, input.clone().into_inner().email, input.clone().into_inner().password).await{

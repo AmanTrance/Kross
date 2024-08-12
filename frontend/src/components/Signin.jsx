@@ -13,7 +13,9 @@ function Signin() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const data = await axios.post('http://127.0.0.1:8000/user', JSON.stringify(apidata));
+    const data = await axios.post('http://127.0.0.1:8000/api/user', JSON.stringify(apidata), {headers:{
+      'Content-Type': 'application/json'
+    }});
     const response = data.data.id;
     dispatch(updateId(response));
     navigate('/app');
