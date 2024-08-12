@@ -2,7 +2,7 @@
     padding-top:10px;
     background-color: transparent;
     display:flex;
-    height:70px;
+    height:90px;
     border-style: solid;
 }
 
@@ -13,7 +13,7 @@
 
 #span{
     color: aliceblue;
-    margin-top: .5em;
+    margin-top: 0.9em;
     margin-left: .5em;
     text-shadow: black;
     font-size: x-large;
@@ -22,13 +22,15 @@
 }
 
 #profile-pic{
+    margin-left: 1rem;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:60px;
-    width:60px;
+    height:80px;
+    width:80px;
     border-radius:50px;
     background-image:linear-gradient(cyan, lightblue);
+    background-size: cover;
 }
 
 #label{

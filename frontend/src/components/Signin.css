@@ -7,21 +7,13 @@
 }
 #form{
     background-color:transparent;
-    height:600px; 
-    width:600px;
+    height:40rem; 
+    width:40rem;
     border-radius:30px;
     border-style:solid;
     display:flex;
     justify-content:center;
     align-items:center;
-    transition-property: inherit;
-    transition-duration: 500ms;
-    transition-timing-function:cubic-bezier(0.755, 0.05, 0.855, 0.06);
-}
-
-#form:hover{
-    border-width:5px;
-    border-color:black;
 }
 
 #main-form{
@@ -42,18 +34,18 @@ input{
     font-weight:bolder;
     font-size:large;
     padding-left:5px;
-    height:30px;
-    width:400px;
+    height:2.5rem;
+    width:25rem;
     margin-bottom:40px;
     border-radius:10px;
 }
 
 #save-btn{
-    margin-left:35%;
+    margin-left:9rem;
     padding-left:0%;
     background-color:mediumturquoise;
-    height:50px;
-    width:100px;
+    height:3rem;
+    width:6rem;
     border-radius:25px;
     border-style:solid;
 }

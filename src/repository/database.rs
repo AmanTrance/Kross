@@ -1,7 +1,10 @@
 extern crate mongodb;
+extern crate dotenv;
 
 use mongodb::bson::doc;
 use mongodb::{results::InsertOneResult, sync::Client};
+use dotenv::dotenv;
+use std::env;
 
 use crate::models::models::User;
 
@@ -11,8 +14,10 @@ pub struct MongoClient{
 
 impl MongoClient{
     pub fn init() -> Self{
-        const URI: &'static str = "mongodb+srv://amanhobo:eaHVMMdhMFTeIO5@cluster0.nh1f8qx.mongodb.net/";
-        let client = Client::with_uri_str(URI)
+        dotenv().ok();
+        let db_key: String = env::var("MONGO_URI").unwrap();
+        let uri: String = db_key;
+        let client = Client::with_uri_str(uri)
         .ok()
         .unwrap();
 
@@ -25,11 +30,38 @@ impl MongoClient{
         .insert_one(data)
         .await
     }
-    pub async fn find_user(&self, db_name: &str, collection: &str, id: String) -> Result<std::option::Option<User>, mongodb::error::Error>{
+    pub async fn find_user(&self, db_name: &str, collection: &str, id: String) -> Result<Option<User>, mongodb::error::Error>{
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .find_one(doc!{"id": id})
         .await
+    }
+    pub async fn find_user_id(&self, db_name: &str, collection: &str, email: String) -> Result<Option<User>, mongodb::error::Error>{
+        self.client
+        .database(db_name)
+        .collection::<User>(collection)
+        .find_one(doc!{"email": email})
+        .await
+    }
+    pub async fn user_exists(&self, db_name: &str, collection: &str, email: String) -> bool{
+        match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
+            "email": email
+        }).await{
+            Ok(Some(_)) => true,
+            Ok(None) => false,
+            Err(_) => false
+        }
+    }
+    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: String, email: String, password: String) -> bool{
+        match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
+            "name": name,
+            "email": email,
+            "password": password
+        }).await{
+            Ok(Some(_)) => true,
+            Ok(None) => false,
+            Err(_) => false
+        }
     }
 }

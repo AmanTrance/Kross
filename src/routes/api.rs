@@ -14,12 +14,39 @@ pub fn index() -> String{
     String::from("Hello World!!\nThis is a Rust Server.")
 }
 
-#[post("/user", format="json", data="<input>")]
-pub async fn create_user(db: &State<MongoClient>, input: Json<User>) -> Status{
-  db.create_user(input.into_inner(), "Interface", "User")
-  .await
-  .expect("Can't create a user");
-  Status::new(201)
+#[post("/user", format="application/x-www-form-urlencoded", data="<input>")]
+pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
+  if db.user_exists("Interface", "User", input.clone().into_inner().email).await {
+    if db.credentials_ok("Interface", "User", input.clone().into_inner().name, input.clone().into_inner().email, input.clone().into_inner().password).await{
+      let id = db
+      .find_user_id("Interface", "User", input.into_inner().email)
+      .await
+      .ok()
+      .unwrap()
+      .unwrap()
+      .id;
+      json!({"id": id})
+    }
+    else{
+      json!({
+        "id": "Wrong Credentials"
+      })
+    }
+  }
+  else{
+    db
+    .create_user(input.clone().into_inner(), "Interface", "User")
+    .await
+    .ok();
+    let id = db
+    .find_user_id("Interface", "User", input.into_inner().email)
+    .await
+    .ok()
+    .unwrap()
+    .unwrap()
+    .id;
+    json!({"id": id})
+  }
 }
 
 #[get("/userdata/<id>")]
@@ -39,7 +66,7 @@ pub async fn get_user(db: &State<MongoClient>, id: String) -> Value{
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
 pub async fn post_image(id: String, file: Data<'_>) -> Result<Status, io::Error>{
   let img_path = format!("./temp/image{}.jpg", id);
-  let _img_file = fs::File::create_new(Path::new(img_path.as_str()))?;
+  let _img_file = fs::File::create(Path::new(img_path.as_str()))?;
   let path: &Path = Path::new(img_path.as_str());
   let data = file.open(2_usize.mebibytes());
   data.into_file(path).await?;
@@ -47,7 +74,7 @@ pub async fn post_image(id: String, file: Data<'_>) -> Result<Status, io::Error>
 } 
 
 #[get("/getimg/<id>")]
-pub async fn send_image(id: String) -> Option<NamedFile>{
+pub async fn send_image(id: &str) -> Option<NamedFile>{
   let path_str = format!("./temp/image{}.jpg", id);
   let path = Path::new(path_str.as_str());
   if path.exists(){

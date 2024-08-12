@@ -4,7 +4,7 @@ mod models;
 use repository::database::MongoClient;
 use rocket::http::Method;
 use rocket_cors::{AllowedOrigins, CorsOptions};
-use routes::api::{index, create_user, get_user, post_image, send_image};
+use routes::api::{index, user_sign_in, get_user, post_image, send_image};
 extern crate uuid;
 #[macro_use] extern crate rocket;
 
@@ -26,6 +26,6 @@ fn rocket() -> _ {
     .manage(db)
     .attach(cors.to_cors().unwrap())
     .mount("/", routes![index])
-    .mount("/", routes![create_user, get_user])
+    .mount("/", routes![user_sign_in, get_user])
     .mount("/", routes![post_image, send_image])
 }
