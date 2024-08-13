@@ -4,6 +4,9 @@
     display:flex;
     height:90px;
     border-style: solid;
+    transition-property: all;
+    transition-duration: 250ms;
+    transition-timing-function: linear;
 }
 
 .sandwich:hover{
@@ -13,8 +16,8 @@
 
 #span{
     color: aliceblue;
-    margin-top: 0.9em;
-    margin-left: .5em;
+    padding-top: 20px;
+    padding-left: 15px;
     text-shadow: black;
     font-size: x-large;
     font-weight: 900;
@@ -22,7 +25,7 @@
 }
 
 #profile-pic{
-    margin-left: 1rem;
+    margin-left: 10px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -31,11 +34,19 @@
     border-radius:50px;
     background-image:linear-gradient(cyan, lightblue);
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#image{
+    padding: 0px 0px 0px;
+    height: 100%;
+    width: 100%;
 }
 
 #label{
-    height:35px;
-    width:50px;
+    height:100%;
+    width:100%;
     display:flex;
     justify-content:center;
     align-items:center;

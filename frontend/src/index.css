@@ -7,8 +7,11 @@
 body{
   height:100vh;
   width:100vw;
-  background-image:url('https://wallpapers.com/images/high/1920x1080-amoled-dauntless-ocscsu5edm7pezy0.webp');
-  background-size:cover;
+  background-image: url('https://t4.ftcdn.net/jpg/03/40/95/07/240_F_340950720_lfQmAGiq2CcqDH3aqiVKshA5l6yFDvwo.jpg  ');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 #root{

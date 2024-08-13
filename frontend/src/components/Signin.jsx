@@ -23,7 +23,6 @@ function Signin() {
 
   return (
     <div id='form-box'>
-      <div id='form'>
         <form id ='main-form' onSubmit={submitform}>
             <label htmlFor='name' >NAME</label><br/>
             <input type='text' placeholder='Enter Name' id='name' name='name'/><br/>
@@ -33,7 +32,6 @@ function Signin() {
             <input type='text' placeholder='Enter Password' id='password' name='password'/><br/>
             <input type='submit' value={"SIGN IN"} id='save-btn'/>
         </form>
-      </div>
     </div>
   )
 }

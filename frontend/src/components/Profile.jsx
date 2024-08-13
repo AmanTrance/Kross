@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 function Profile() {
-  const [id, setId] = useState(useSelector((state) => state.id.id));
+  const id = useSelector((state) => state.id.id);
   const [name, setName] = useState('Aman'); 
   const [icon, setIcon] = useState(null);
 
