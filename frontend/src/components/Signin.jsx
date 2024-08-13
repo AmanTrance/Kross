@@ -18,14 +18,22 @@ function Signin() {
     }});
     const response = data.data.id;
     dispatch(updateId(response));
-    navigate('/app');
+    if(response !== "Wrong Credentials") {
+      navigate('/app')
+    }else{
+      navigate('/error', {state:
+        {
+          msg:"Wrong Credentials",
+          path: "/"
+      }})
+    }
   }
 
   return (
     <div id='form-box'>
         <form id ='main-form' onSubmit={submitform}>
-            <label htmlFor='name' >NAME</label><br/>
-            <input type='text' placeholder='Enter Name' id='name' name='name'/><br/>
+            <label htmlFor='name' >USERNAME</label><br/>
+            <input type='text' placeholder='Enter Username' id='name' name='name'/><br/>
             <label htmlFor='email'>EMAIL</label><br/>
             <input type='text' placeholder='Enter Email' id='email' name='email'/><br/>
             <label htmlFor='password'>PASSWORD</label><br/>

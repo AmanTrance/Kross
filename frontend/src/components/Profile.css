@@ -32,10 +32,9 @@
     height:80px;
     width:80px;
     border-radius:50px;
-    background-image:linear-gradient(cyan, lightblue);
+    background-image:linear-gradient(black,gray);
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
 }
 
 #image{

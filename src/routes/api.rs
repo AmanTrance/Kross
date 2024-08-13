@@ -74,13 +74,13 @@ pub async fn post_image(id: String, file: Data<'_>) -> Result<Status, io::Error>
 } 
 
 #[get("/getimg/<id>")]
-pub async fn send_image(id: &str) -> Option<NamedFile>{
+pub async fn send_image(id: &str) -> Result<NamedFile, Status>{
   let path_str = format!("./temp/image{}.jpg", id);
   let path = Path::new(path_str.as_str());
   if path.exists(){
-    NamedFile::open(path).await.ok()
+    Ok(NamedFile::open(path).await.ok().unwrap())
   }
   else{
-    None
+    Err(Status::new(404))
   }
 }

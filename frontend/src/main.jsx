@@ -6,6 +6,7 @@ import Signin from './components/Signin.jsx'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import store from './store/store.js'
 import { Provider } from 'react-redux' 
+import Error from './components/Error.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Signin/>}/>
+          <Route path='error' element={<Error/>}/>
           <Route path="/app" element={<App/>}/>        
         </Routes>
       </BrowserRouter>

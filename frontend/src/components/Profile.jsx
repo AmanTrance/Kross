@@ -4,25 +4,42 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 function Profile() {
-  const id = useSelector((state) => state.id.id);
+  const [id, setId] = useState(useSelector((state) => state.id.id));
   const [name, setName] = useState('Aman'); 
   const [icon, setIcon] = useState(null);
 
-  if(id !== null){
-    useEffect(() => {
-      document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
-    })
+  useEffect(() => {
+    let func = async () => {
+      if(id !== null){
+        window.sessionStorage.setItem("id", id);
+        const response = await fetch(`http://127.0.0.1:8000/api/getimg/${id}`);
+        if(response.status !== 404){
+          document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
+        }
+      }
+      else{
+        const temp = window.sessionStorage.getItem("id");
+        if(temp === null){
+          alert("You should sign in");
+        }
+        else{
+          const response = await fetch(`http://127.0.0.1:8000/api/getimg/${temp}`);
+          if(response.status !== 404){
+            document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${temp}')`;
+          }
+        }
+      }
+    };
+    func();
     
-  }
+  }, [id])
 
   const edit = (e) => {
     if (e.type === 'mouseover'){
       setIcon(<i className="fa-solid fa-pen" id='icon'></i>);
-      document.getElementById('profile-pic').style.backgroundImage = 'linear-gradient(grey, black)';
     }
     else{
       setIcon(null);
-      document.getElementById('profile-pic').style.backgroundImage = 'linear-gradient(cyan, lightblue)'
     }
   }
 

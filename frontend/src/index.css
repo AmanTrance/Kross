@@ -7,11 +7,7 @@
 body{
   height:100vh;
   width:100vw;
-  background-image: url('https://t4.ftcdn.net/jpg/03/40/95/07/240_F_340950720_lfQmAGiq2CcqDH3aqiVKshA5l6yFDvwo.jpg  ');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+  background-image: repeating-linear-gradient(black,#414141, black, #414141, black);
 }
 
 #root{
