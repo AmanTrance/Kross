@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './Profile.css'
-import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
-  const [id, setId] = useState(useSelector((state) => state.id.id));
+  const [id, setId] = useState(window.sessionStorage.getItem("id"));
   const [name, setName] = useState('User'); 
   const [icon, setIcon] = useState(null);
   const navigate = useNavigate();
@@ -13,7 +12,6 @@ function Profile() {
   useEffect(() => {
     let func = async () => {
       if(id !== null){
-        window.sessionStorage.setItem("id", id);
         const user_details = await axios.get(`http://127.0.0.1:8000/api/userdata/${id}`);
         const user_details_response = await user_details.data.name;
         setName(user_details_response);
@@ -21,24 +19,13 @@ function Profile() {
         if(response.status !== 404){
           document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
         }
+      }else{
+        navigate('/error', {state:{
+          msg: "Sign in first !!",
+          path: "/"
+        }})
       }
-      else{
-        const temp = window.sessionStorage.getItem("id");
-        setId(temp);
-        if(temp === null){
-          navigate('/error', {state: {
-            msg: "Sign in first!!",
-            path: "/"
-          }});
-        }
-        else{
-          const response = await axios.get(`http://127.0.0.1:8000/api/getimg/${temp}`);
-          if(response.status !== 404){
-            document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${temp}')`;
-          }
-        }
-      }
-    };
+    }
     func();
     
   }, [id])

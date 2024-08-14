@@ -1,13 +1,10 @@
 import React from 'react'
 import './Signin.css'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { updateId } from './idSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Signin() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const submitform = async (e) => {
     e.preventDefault();
     const form = document.getElementById('main-form');
@@ -16,9 +13,9 @@ function Signin() {
     const data = await axios.post('http://127.0.0.1:8000/api/user', JSON.stringify(apidata), {headers:{
       'Content-Type': 'application/json'
     }});
-    const response = data.data.id;
-    dispatch(updateId(response));
-    if(response !== "Wrong Credentials") {
+    const id = data.data.id;
+    if(id !== "Wrong Credentials") {
+      window.sessionStorage.setItem("id", id)
       navigate('/app')
     }else{
       navigate('/error', {state:

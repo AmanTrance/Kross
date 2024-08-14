@@ -1,10 +1,10 @@
 .main{
-    height:100vh;
-    width:100vw;
-    background-color:sienna;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    height: 100vh;
+    width: 100vw;
+    background-color: sienna;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #message-box{
@@ -16,14 +16,21 @@
     color: black;
     font-family: 'Segoe UI';
     font-weight: 900;
-    font-size:80px;
-    height:80%;
-    width:50%;
-    border-radius:25px;
-    background-color:yellowgreen;
+    font-size: 80px;
+    height: 80%;
+    width: 50%;
+    border-radius: 25px;
+    background-color: yellowgreen;
     border-width: 10px;
     border-style: solid;
     border-color: purple;
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+    &:hover{
+        border-style: double;
+        border-color: black;
+    }
 }
 
 #try-btn{
@@ -39,7 +46,7 @@
 }
 
 #try-btn:hover{
-    background-color:darkmagenta;
+    background-color: darkmagenta;
 }
 
 @media (max-width: 890px){
