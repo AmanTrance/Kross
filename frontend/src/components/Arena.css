@@ -1,0 +1,33 @@
+#box{
+    background-color: blueviolet;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#arena-box{
+    margin-top: 100px;
+    height: 600px;
+    width: 500px;
+    background-color: black;
+    border-radius: 30px;
+    border-style: double;
+    border-width: 20px;
+    border-color: purple;
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+}
+
+#arena-box:hover{
+    border-color: white;
+}
+
+@media (max-width: 500px) {
+    #arena-box{
+            height: 600px;
+            width: 250px;
+    }
+}

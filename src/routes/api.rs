@@ -64,7 +64,7 @@ pub async fn get_user(db: &State<MongoClient>, id: String) -> Value{
 }
 
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
-pub async fn post_image(id: String, file: Data<'_>) -> Result<Status, io::Error>{
+pub async fn post_image(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
   let img_path = format!("./temp/image{}.jpg", id);
   let _img_file = fs::File::create(Path::new(img_path.as_str()))?;
   let path: &Path = Path::new(img_path.as_str());

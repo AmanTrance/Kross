@@ -1,25 +1,31 @@
 .sandwich{
+    width: 100%;
+    position: fixed;
     padding-top:10px;
-    background-color: transparent;
+    background-color: black;
     display:flex;
     height:90px;
-    border-style: solid;
+    border-style: double;
+    border-width: 4px;
+    border-color: purple;
     transition-property: all;
-    transition-duration: 250ms;
-    transition-timing-function: linear;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
 }
 
 .sandwich:hover{
-    border-width: 6px;
-    border-color: black;
+    border-width: 10px;
+    border-color: white;
 }
 
 #span{
+    text-decoration:underline lightcyan;
+    text-decoration-thickness: 6px;
     color: aliceblue;
-    padding-top: 20px;
+    padding-top: 25px;
     padding-left: 15px;
-    text-shadow: black;
-    font-size: x-large;
+    text-shadow: 2px 2px black;
+    font-size: large;
     font-weight: 900;
     font-family: 'Segoe UI';
 }

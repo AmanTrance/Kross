@@ -2,28 +2,37 @@ import React, { useState, useEffect } from 'react'
 import './Profile.css'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const [id, setId] = useState(useSelector((state) => state.id.id));
-  const [name, setName] = useState('Aman'); 
+  const [name, setName] = useState('User'); 
   const [icon, setIcon] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let func = async () => {
       if(id !== null){
         window.sessionStorage.setItem("id", id);
-        const response = await fetch(`http://127.0.0.1:8000/api/getimg/${id}`);
+        const user_details = await axios.get(`http://127.0.0.1:8000/api/userdata/${id}`);
+        const user_details_response = await user_details.data.name;
+        setName(user_details_response);
+        const response = await axios.get(`http://127.0.0.1:8000/api/getimg/${id}`);
         if(response.status !== 404){
           document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
         }
       }
       else{
         const temp = window.sessionStorage.getItem("id");
+        setId(temp);
         if(temp === null){
-          alert("You should sign in");
+          navigate('/error', {state: {
+            msg: "Sign in first!!",
+            path: "/"
+          }});
         }
         else{
-          const response = await fetch(`http://127.0.0.1:8000/api/getimg/${temp}`);
+          const response = await axios.get(`http://127.0.0.1:8000/api/getimg/${temp}`);
           if(response.status !== 404){
             document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${temp}')`;
           }
@@ -46,12 +55,14 @@ function Profile() {
   const uploadProfile = async (e) => {
     e.preventDefault();
     if(id === null) {
-      alert("You are not Signed In");
+      navigate('/error', {state: {
+        msg: "Sign in first!!",
+        path: "/"
+      }})
       return;
     }else{
-      alert("Only Jpeg/jpg Files of max size 2Mb");
       const response = await axios.post(`http://127.0.0.1:8000/api/image/${id}`, e.target.files[0], {headers:{
-        'Content-type': 'image/jpeg'
+        'Content-Type': 'image/jpeg'
       }});
     }
   }
@@ -66,7 +77,7 @@ function Profile() {
         </label>
         <input type='file' id='upload' onChange={uploadProfile}/>       
       </div>
-      <span id='span'>Welcome {name}!</span>
+      <span id='span'>Welcome {name} !</span>
    </div>
   )
 }

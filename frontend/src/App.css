@@ -1,5 +1,10 @@
 #app-div{
     height:100%;
     width:100%;
-    background-color: deepskyblue;
+}
+
+.line{
+    border-top: 10px;
+    border-color: purple;
+    border-style:dashed;
 }
