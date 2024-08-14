@@ -30,21 +30,21 @@ impl MongoClient{
         .insert_one(data)
         .await
     }
-    pub async fn find_user(&self, db_name: &str, collection: &str, id: String) -> Result<Option<User>, mongodb::error::Error>{
+    pub async fn find_user(&self, db_name: &str, collection: &str, id: &String) -> Result<Option<User>, mongodb::error::Error>{
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .find_one(doc!{"id": id})
         .await
     }
-    pub async fn find_user_id(&self, db_name: &str, collection: &str, email: String) -> Result<Option<User>, mongodb::error::Error>{
+    pub async fn find_user_id(&self, db_name: &str, collection: &str, email: &String) -> Result<Option<User>, mongodb::error::Error>{
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .find_one(doc!{"email": email})
         .await
     }
-    pub async fn user_exists(&self, db_name: &str, collection: &str, email: String) -> bool{
+    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String) -> bool{
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
             "email": email
         }).await{
@@ -53,7 +53,7 @@ impl MongoClient{
             Err(_) => false
         }
     }
-    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: String, email: String, password: String) -> bool{
+    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: &String, email: &String, password: &String) -> bool{
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
             "name": name,
             "email": email,

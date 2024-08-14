@@ -16,10 +16,10 @@ pub fn index() -> String{
 
 #[post("/user", format="application/json", data="<input>")]
 pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
-  if db.user_exists("Interface", "User", input.clone().into_inner().email).await {
-    if db.credentials_ok("Interface", "User", input.clone().into_inner().name, input.clone().into_inner().email, input.clone().into_inner().password).await{
+  if db.user_exists("Interface", "User", &input.email).await {
+    if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await{
       let id = db
-      .find_user_id("Interface", "User", input.into_inner().email)
+      .find_user_id("Interface", "User", &input.email)
       .await
       .ok()
       .unwrap()
@@ -39,7 +39,7 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
     .await
     .ok();
     let id = db
-    .find_user_id("Interface", "User", input.into_inner().email)
+    .find_user_id("Interface", "User", &input.email)
     .await
     .ok()
     .unwrap()
@@ -51,7 +51,8 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
 
 #[get("/userdata/<id>")]
 pub async fn get_user(db: &State<MongoClient>, id: String) -> Value{
-  let user =  db.find_user("Interface", "User", id)
+  let user =  db
+  .find_user("Interface", "User", &id)
   .await
   .expect("User not Found");
   if user.is_none(){
