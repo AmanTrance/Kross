@@ -4,10 +4,10 @@ import './Arena.css'
 function Arena(props) {
 
   return (
-    <div id='box' style={{background: props.color}}>
-        <textarea id='arena-box'>
-
-        </textarea>
+    <div id='box'>
+        <div id='arena-box'>
+          {props.msg}
+        </div>
     </div>
   )
 }

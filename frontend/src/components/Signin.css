@@ -39,9 +39,6 @@ input{
     height: 40px;
     width: 350px;
     border-radius: 10px;
-    transition-property: all;
-    transition-duration: 500ms;
-    transition-timing-function: ease-in-out;
 }
 
 input:focus{
@@ -56,6 +53,7 @@ input:focus{
     text-shadow: 0px 0px 0px;
     font-size: larger;
     background-color: mediumturquoise;
+    cursor: pointer;
     height: 50px;
     width: 100px;
     border-radius: 25px;

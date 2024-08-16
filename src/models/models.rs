@@ -10,6 +10,12 @@ pub struct User{
     pub password: String
 }
 
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+pub struct Arena<'r>{
+    pub owner_id: String,
+    pub message: &'r str
+}
+
 fn get_id() -> String{
     let uuid = Uuid::new_v4().to_string();
     uuid

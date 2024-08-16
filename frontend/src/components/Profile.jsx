@@ -32,7 +32,7 @@ function Profile() {
 
   const edit = (e) => {
     if (e.type === 'mouseover'){
-      setIcon(<i className="fa-solid fa-pen" id='icon'></i>);
+      setIcon(<i className="fa-solid fa-pen-to-square"></i>);
     }
     else{
       setIcon(null);
@@ -55,17 +55,17 @@ function Profile() {
   }
 
   return (
-    <div className='sandwich'>
-      <div id='profile-pic'> 
-        <label htmlFor='upload' id='image'>
-          <div id='label' onMouseOver={edit} onMouseOut={edit}>
-            {icon}
-          </div>
-        </label>
-        <input type='file' id='upload' onChange={uploadProfile}/>       
-      </div>
-      <span id='span'>Welcome {name} !</span>
-   </div>
+      <nav className='sandwich'>
+        <div id='profile-pic'> 
+          <label htmlFor='upload' id='image'>
+            <div id='label' onMouseOver={edit} onMouseOut={edit}>
+              {icon}
+            </div>
+          </label>
+          <input type='file' id='upload' onChange={uploadProfile}/>       
+        </div>
+        <span id='span'>Welcome {name} !</span>
+    </nav>
   )
 }
 

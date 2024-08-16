@@ -3,8 +3,24 @@
     width: 100%;
 }
 
-.line{
-    border-top: 10px;
-    border-color: purple;
-    border-style: dashed;
+#infinite-query{
+    background-color: black;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#load{
+    height: 80%;
+    width: 15%;
+    background-color: cadetblue;
+    border-radius: 25px;
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in;
+}
+
+#load:hover{
+    background-color: cyan;
 }

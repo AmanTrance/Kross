@@ -1,15 +1,18 @@
 .sandwich{
     width: 100%;
-    position: absolute;
+    position: fixed;
     background-color: black;
     display: flex;
     height: 100px;
     border-style: double;
-    border-width: 4px;
+    border-left: 0px;
+    border-right: 0px;
+    border-width: 5px;
     border-color: purple;
     transition-property: all;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
+    z-index: 50;
 }
 
 .sandwich:hover{
@@ -61,6 +64,6 @@
     display: none;
 }
 
-#icon{
+.fa-solid.fa-pen-to-square{
     color: aliceblue;
 }

@@ -1,5 +1,5 @@
 use crate::repository::database::MongoClient;
-use crate::models::models::User;
+use crate::models::models::{Arena, User};
 use rocket::fs::NamedFile;
 use rocket::serde::json::Json;
 use rocket::serde::json::{json, Value};
@@ -35,7 +35,7 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
   }
   else{
     db
-    .create_user(input.clone().into_inner(), "Interface", "User")
+    .create_user(&input, "Interface", "User")
     .await
     .ok();
     let id = db
@@ -50,9 +50,9 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
 }
 
 #[get("/userdata/<id>")]
-pub async fn get_user(db: &State<MongoClient>, id: String) -> Value{
+pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value{
   let user =  db
-  .find_user("Interface", "User", &id)
+  .find_user("Interface", "User", id)
   .await
   .expect("User not Found");
   if user.is_none(){
@@ -83,5 +83,25 @@ pub async fn send_image(id: &str) -> Result<NamedFile, Status>{
   }
   else{
     Err(Status::new(404))
+  }
+}
+
+#[post("/arenapost", format="application/json", data="<arena>")]
+pub async fn arena_post(db: &State<MongoClient>, arena: Json<Arena<'_>>) -> Status{
+  match db.create_arena("Interface", "Arena", &arena).await{
+    Ok(_) => Status::new(201),
+    Err(_) => Status::new(400)
+  }
+}
+
+#[get("/getarena/<id>")]
+pub async fn get_arena_details(db: &State<MongoClient>, id: &str) -> Value{
+  match db.find_arena("Interface", "Arena", id).await{
+    Ok(x) => json!({
+      "data": x
+    }),
+    Err(_) => json!({
+      "data": "Arena not filled"
+    })
   }
 }

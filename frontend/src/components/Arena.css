@@ -3,11 +3,15 @@
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 #arena-box{
+    font-size: x-large;
+    color: chartreuse;
+    font-weight: 800;
     margin-top: 100px;
     height: 600px;
     width: 500px;
@@ -30,4 +34,11 @@
             height: 600px;
             width: 250px;
     }
+}
+
+@media (max-height: 750px) {
+    #arena-box{
+        height: 400px;
+        width: 250px;
+}
 }
