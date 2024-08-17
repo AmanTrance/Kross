@@ -7,7 +7,7 @@ import axios from 'axios';
 function App() {
   const [query, setQuery] = useState(0);
   const [components, setComponents] = useState([]);
-
+  const [click, setClick] = useState(false);
   useEffect(() => {
     if(query === 0) {
       setQuery(5);
@@ -31,9 +31,31 @@ function App() {
     setQuery((prev) => prev + 5);
   }
 
+  function handleClick(e) {
+    if(click === false) {
+      setClick(true);
+      document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(45deg)';
+      
+    }else {
+      setClick(false);
+      document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(0deg)';
+    }
+  }
+
   return (
     <div id='app-div'>
-      <Profile/>
+      <div className='profile-user'>
+        <Profile/>
+        <div id='add-arena' onClick={handleClick}>
+          <i class="fa-solid fa-plus" id='plus'></i>
+        </div>
+        {click && <div id='post-arena'>
+          <textarea id='text-box'></textarea>
+          <div id='btn-div'>
+            <button id='post-btn'>Post</button>
+          </div>
+        </div>}
+      </div>
       {components.map((component) => {
         return component;
       })}

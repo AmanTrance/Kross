@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Signin.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import img1 from '../public/eye-close.png';
+import img2 from '../public/eye-open.png';
 
 function Signin() {
+  const [hide, setHide] = useState(true);
   const navigate = useNavigate();
   const submitform = async (e) => {
     e.preventDefault();
@@ -26,6 +29,16 @@ function Signin() {
     }
   }
 
+  const visibilityHandle = () => {
+    if(hide === true) {
+      setHide(false);
+      document.getElementById('password').type = "text";
+    }else {
+      setHide(true);
+      document.getElementById('password').type = "password";
+    }
+  }
+
   return (
     <div id='form-box'>
         <form id ='main-form' onSubmit={submitform}>
@@ -34,7 +47,10 @@ function Signin() {
             <label htmlFor='email'>EMAIL</label><br/>
             <input type='text' placeholder='Enter Email' id='email' name='email'/><br/>
             <label htmlFor='password'>PASSWORD</label><br/>
-            <input type='text' placeholder='Enter Password' id='password' name='password'/><br/>
+            <div id='passcontainer'>
+              <input type='password' placeholder='Enter Password' id='password' name='password'/><br/>
+              <img src={hide ? img1 : img2} id='secure' onClick={visibilityHandle}></img>
+            </div>
             <input type='submit' value={"SIGN IN"} id='save-btn'/>
         </form>
     </div>

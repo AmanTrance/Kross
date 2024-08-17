@@ -1,6 +1,41 @@
 #app-div{
     height: 100%;
     width: 100%;
+    background-color: black;
+}
+
+.profile-user{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-arena{
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: mediumorchid;
+    margin-top: 180px;
+    position: fixed;
+    margin-left: 450px;
+    transition: all 500ms ease-in;
+    &:hover{
+        background-color: beige;
+    }
+}
+
+.fa-solid.fa-plus{
+    font-size: xx-large;
+    color: black;
+    transition: all 500ms ease-in;
+    &:hover{
+        color: blueviolet;
+    }
 }
 
 #infinite-query{
@@ -14,6 +49,7 @@
 #load{
     height: 80%;
     width: 15%;
+    font-weight: 800;
     background-color: cadetblue;
     border-radius: 25px;
     transition-property: all;
@@ -22,5 +58,55 @@
 }
 
 #load:hover{
-    background-color: cyan;
+    background-color: lightgreen;
+}
+
+#post-arena{
+    margin-top: 900px;
+    height: 600px;
+    width: 400px;
+    border-radius: 25px;
+    display: grid;
+    grid-template-rows: 10fr 1fr;
+    grid-template-columns: 1fr;
+    background-color: white;
+    color: lightgreen;
+    position: fixed;
+    z-index: 1200;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}
+
+#text-box{
+    color: black;
+    font-family: 'Segoe UI';
+    font-weight: 900;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    border-width: 5px;
+    border-color: green;
+    font-size: x-large;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#btn-div{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#post-btn{
+    height: 30px;
+    width: 100px;
+    border-radius: 20px;
+    background-color: lightpink;
+    transition: all 500ms ease-in;
+    &:hover{
+        background-color: violet;
+    }
 }

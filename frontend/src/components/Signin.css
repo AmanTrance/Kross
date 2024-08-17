@@ -47,8 +47,31 @@ input:focus{
     border-color: mediumturquoise;
 }
 
+#passcontainer{
+    height: 40px;
+    width: 350px;
+    display: flex;
+}
+
+#password{
+    height: 100%;
+    width: 100%;
+}
+
+#secure{
+    width: 25px;
+    height: 20px;
+    position: absolute;
+    z-index: 500;
+    margin-left: 310px;
+    margin-top: 12px;
+    padding-left: 5px;
+    border-style: solid;
+    border-width: 0px 0px 0px 2px;
+}
+
 #save-btn{
-    margin-top: 10px;
+    margin-top: 20px;
     color: black;
     text-shadow: 0px 0px 0px;
     font-size: larger;
