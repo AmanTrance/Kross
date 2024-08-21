@@ -35,10 +35,17 @@ function App() {
     if(click === false) {
       setClick(true);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(45deg)';
-      
+      document.getElementById('text-box').style.display = 'initial';
+      document.getElementById('post-btn').style.display = 'initial';
+      document.getElementById('post-arena').style.height = '600px';
+      document.getElementById('post-arena').style.width = '400px';
     }else {
       setClick(false);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(0deg)';
+      document.getElementById('post-arena').style.height = '0px';
+      document.getElementById('post-arena').style.width = '0px';
+      document.getElementById('text-box').style.display = 'none';
+      document.getElementById('post-btn').style.display = 'none';
     }
   }
 
@@ -49,12 +56,12 @@ function App() {
         <div id='add-arena' onClick={handleClick}>
           <i class="fa-solid fa-plus" id='plus'></i>
         </div>
-        {click && <div id='post-arena'>
+          <div id='post-arena'>
           <textarea id='text-box'></textarea>
           <div id='btn-div'>
             <button id='post-btn'>Post</button>
           </div>
-        </div>}
+        </div>
       </div>
       {components.map((component) => {
         return component;

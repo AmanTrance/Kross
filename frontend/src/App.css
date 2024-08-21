@@ -63,22 +63,23 @@
 
 #post-arena{
     margin-top: 900px;
-    height: 600px;
-    width: 400px;
     border-radius: 25px;
     display: grid;
+    height: 0px;
+    width: 0px;
     grid-template-rows: 10fr 1fr;
     grid-template-columns: 1fr;
     background-color: white;
     color: lightgreen;
     position: fixed;
-    z-index: 1200;
+    z-index: 1000;
     transition-property: all;
-    transition-duration: 1s;
+    transition-duration: 500ms;
     transition-timing-function: ease-out;
 }
 
 #text-box{
+    display: none;
     color: black;
     font-family: 'Segoe UI';
     font-weight: 900;
@@ -101,8 +102,9 @@
 }
 
 #post-btn{
-    height: 30px;
-    width: 100px;
+    display: none;
+    height: 60%;
+    width: 40%;
     border-radius: 20px;
     background-color: lightpink;
     transition: all 500ms ease-in;
