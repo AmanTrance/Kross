@@ -4,7 +4,7 @@ mod models;
 use repository::database::MongoClient;
 use rocket::http::Method;
 use rocket_cors::{AllowedOrigins, CorsOptions};
-use routes::api::{index, user_sign_in, get_user, post_image, send_image, arena_post, get_arena_details};
+use routes::api::{index, user_sign_in, get_user, post_image, send_image, arena_post, get_arena_details, upload_video};
 extern crate uuid;
 #[macro_use] extern crate rocket;
 
@@ -27,5 +27,5 @@ fn rocket() -> _ {
     .attach(cors.to_cors().unwrap())
     .mount("/api", routes![index])
     .mount("/api", routes![user_sign_in, get_user])
-    .mount("/api", routes![post_image, send_image, arena_post, get_arena_details])
+    .mount("/api", routes![post_image, upload_video, send_image, arena_post, get_arena_details])
 }

@@ -67,12 +67,22 @@ pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value{
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
 pub async fn post_image(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
   let img_path = format!("./temp/image{}.jpg", id);
-  let _img_file = fs::File::create(Path::new(img_path.as_str()))?;
-  let path: &Path = Path::new(img_path.as_str());
+  let _img_file = fs::File::create(Path::new(&img_path))?;
+  let path: &Path = Path::new(&img_path);
   let data = file.open(2_usize.mebibytes());
   data.into_file(path).await?;
   Ok(Status::new(200))
 } 
+
+#[post("/postvideo/<id>", format="video/x-matroska", data="<file>")]
+pub async fn upload_video(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
+  let video_path = format!("./temp/video{}.mkv", id);
+  let _video_file = fs::File::create(Path::new(&video_path))?;
+  let path: &Path = Path::new(&video_path);
+  let data = file.open(100_usize.megabytes());
+  data.into_file(path).await?;
+  Ok(Status::new(200))
+}
 
 #[get("/getimg/<id>")]
 pub async fn send_image(id: &str) -> Result<NamedFile, Status>{
