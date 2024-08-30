@@ -39,18 +39,24 @@ input{
     height: 40px;
     width: 350px;
     border-radius: 10px;
+    border-width: 2px;
+    transition: all 500ms ease-in;
 }
 
 input:focus{
-    border-style: solid;
-    border-width: 5px;
-    border-color: mediumturquoise;
+    outline: none;
+}
+
+input:hover{
+    border-width: 2px;
+    border-color: white;
 }
 
 #passcontainer{
     height: 40px;
     width: 350px;
     display: flex;
+    position: relative;
 }
 
 #password{
@@ -71,14 +77,15 @@ input:focus{
 }
 
 #save-btn{
-    margin-top: 20px;
+    margin-top: 40px;
     color: black;
     text-shadow: 0px 0px 0px;
     font-size: larger;
     background-color: mediumturquoise;
     cursor: pointer;
     height: 50px;
-    width: 100px;
+    width: 150px;
+    border-width: 0px;
     border-radius: 25px;
     transition-property: all;
     transition-duration: 500ms;

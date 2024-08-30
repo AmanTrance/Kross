@@ -15,11 +15,15 @@ function App() {
     }; 
     const getArenas = async () => {
       let messages = [];
-      const response = await axios.get('http://127.0.0.1:8000/api/getarena/100');
-      messages = [...messages, response.data.data[0].message];
+      const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`);
+      if (response.data.data !== "Arena not filled"){
+        for (let msg of response.data.data){
+          messages = [...messages, msg.message];
+        }
+      }
       for(let i = 0; i < 5; i++){
         setComponents((prev) => {
-          return [...prev, <Arena msg={messages[0]}/>];
+          return [...prev, <Arena key={i+query} msg={messages.length > i ? messages[i] : "No More Arenas"}/>];
         });
       }
    }
@@ -29,6 +33,25 @@ function App() {
 
   const load_more = () => {
     setQuery((prev) => prev + 5);
+  }
+
+  const handlePost = async () => {
+    const text = document.getElementById('text-box').value;
+    const response = await axios.post('http://127.0.0.1:8000/api/arenapost', JSON.stringify({
+      owner_id: `${window.sessionStorage.getItem('id')}`,
+      message: text
+    }), {headers: {
+      'Content-Type': 'application/json'
+    }});
+    if (response.status === 201){
+      document.getElementById('text-box').value = "";
+      setClick(false);
+      document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(0deg)';
+      document.getElementById('post-arena').style.height = '0px';
+      document.getElementById('post-arena').style.width = '0px';
+      document.getElementById('text-box').style.display = 'none';
+      document.getElementById('post-btn').style.display = 'none';
+    }
   }
 
   function handleClick(e) {
@@ -54,12 +77,12 @@ function App() {
       <div className='profile-user'>
         <Profile/>
         <div id='add-arena' onClick={handleClick}>
-          <i class="fa-solid fa-plus" id='plus'></i>
+          <i className="fa-solid fa-plus" id='plus'></i>
         </div>
           <div id='post-arena'>
           <textarea id='text-box'></textarea>
           <div id='btn-div'>
-            <button id='post-btn'>Post</button>
+            <button id='post-btn' onClick={handlePost}>Post</button>
           </div>
         </div>
       </div>

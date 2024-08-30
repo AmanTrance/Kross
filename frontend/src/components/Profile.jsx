@@ -40,17 +40,16 @@ function Profile() {
   }
 
   const uploadProfile = async (e) => {
-    e.preventDefault();
     if(id === null) {
       navigate('/error', {state: {
         msg: "Sign in first!!",
         path: "/"
       }})
-      return;
     }else{
       const response = await axios.post(`http://127.0.0.1:8000/api/image/${id}`, e.target.files[0], {headers:{
         'Content-Type': 'image/jpeg'
       }});
+      window.location.reload();
     }
   }
 

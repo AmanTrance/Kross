@@ -1,7 +1,7 @@
 #app-div{
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: coral;
 }
 
 .profile-user{
@@ -20,7 +20,7 @@
     align-items: center;
     border-radius: 50px;
     background-color: mediumorchid;
-    margin-top: 180px;
+    margin-top: 200px;
     position: fixed;
     margin-left: 450px;
     transition: all 500ms ease-in;
@@ -39,7 +39,7 @@
 }
 
 #infinite-query{
-    background-color: black;
+    background-color: coral;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -50,7 +50,8 @@
     height: 80%;
     width: 15%;
     font-weight: 800;
-    background-color: cadetblue;
+    border-width: 0px;
+    background-color: mediumorchid;
     border-radius: 25px;
     transition-property: all;
     transition-duration: 500ms;
@@ -58,7 +59,7 @@
 }
 
 #load:hover{
-    background-color: lightgreen;
+    background-color: palevioletred;
 }
 
 #post-arena{
@@ -69,8 +70,7 @@
     width: 0px;
     grid-template-rows: 10fr 1fr;
     grid-template-columns: 1fr;
-    background-color: white;
-    color: lightgreen;
+    background-color: coral;
     position: fixed;
     z-index: 1000;
     transition-property: all;
@@ -87,8 +87,9 @@
     padding-left: 5px;
     padding-right: 5px;
     padding-bottom: 10px;
-    border-width: 5px;
-    border-color: green;
+    border-width: 4px;
+    outline: none;
+    border-color: coral;
     font-size: x-large;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -102,10 +103,14 @@
 }
 
 #post-btn{
+    font-size: medium;
+    font-family: 'Segoe UI';
+    font-weight: 600;
     display: none;
     height: 60%;
     width: 40%;
     border-radius: 20px;
+    border-width: 0px;
     background-color: lightpink;
     transition: all 500ms ease-in;
     &:hover{
