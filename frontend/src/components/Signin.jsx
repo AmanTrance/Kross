@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import './Signin.css'
-import axios from 'axios'
+import { useState } from 'react';
+import './Signin.css';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import img1 from '../public/eye-close.png';
 import img2 from '../public/eye-open.png';
@@ -13,7 +13,7 @@ function Signin() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const data = await axios.post('http://127.0.0.1:8000/api/user', JSON.stringify(apidata), {headers:{
+    const data = await axios.post('http://127.0.0.1:8000/api/user', apidata, {headers:{
       'Content-Type': 'application/json'
     }});
     const id = data.data.id;
@@ -43,12 +43,12 @@ function Signin() {
     <div id='form-box'>
         <form id ='main-form' onSubmit={submitform}>
             <label htmlFor='name' >USERNAME</label><br/>
-            <input type='text' placeholder='Enter Username' id='name' name='name'/><br/>
+            <input type='text' placeholder='Enter Username' id='name' name='name' required/><br/>
             <label htmlFor='email'>EMAIL</label><br/>
-            <input type='text' placeholder='Enter Email' id='email' name='email'/><br/>
+            <input type='text' placeholder='Enter Email' id='email' name='email' pattern='^[a-z]+@[a-z]+.com$' title='invalid email' required/><br/>
             <label htmlFor='password'>PASSWORD</label><br/>
             <div id='passcontainer'>
-              <input type='password' placeholder='Enter Password' id='password' name='password'/><br/>
+              <input type='password' placeholder='Enter Password' id='password' name='password' required/><br/>
               <img src={hide ? img1 : img2} id='secure' onClick={visibilityHandle}></img>
             </div>
             <input type='submit' value={"SIGN IN"} id='save-btn'/>

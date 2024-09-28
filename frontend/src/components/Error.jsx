@@ -1,16 +1,15 @@
-import React from 'react'
-import './Error.css'
-import { useLocation, useNavigate } from 'react-router-dom'
+import './Error.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Error() {
     const location = useLocation();
     const navigate = useNavigate();
 
     const try_again = () => {
-        if(location.state === null){
+        if(location.state === null) {
             navigate('/error');
         }
-        else{
+        else {
             navigate(`${location.state.path}`)
         }
     }

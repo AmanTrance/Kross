@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import './Arena.css'
+import './Arena.css';
 
 function Arena(props) {
 

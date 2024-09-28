@@ -10,12 +10,12 @@ use std::{fs, io};
 use std::path::Path;
 
 #[get("/")]
-pub fn index() -> String{
-    String::from("Hello World!!\nThis is a Rust Server.")
+pub fn index() -> String {
+    String::from("This is a Rust Server.")
 }
 
 #[post("/user", format="application/json", data="<input>")]
-pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
+pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
   if db.user_exists("Interface", "User", &input.email).await {
     if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await{
       let id = db
@@ -50,7 +50,7 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value{
 }
 
 #[get("/userdata/<id>")]
-pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value{
+pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value {
   let user =  db
   .find_user("Interface", "User", id)
   .await
@@ -65,7 +65,7 @@ pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value{
 }
 
 #[post("/image/<id>", format="image/jpeg", data="<file>")]
-pub async fn post_image(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
+pub async fn post_image(id: &str, file: Data<'_>) -> Result<Status, io::Error> {
   let img_path = format!("./temp/image{}.jpg", id);
   let _img_file = fs::File::create(Path::new(&img_path))?;
   let path: &Path = Path::new(&img_path);
@@ -75,7 +75,7 @@ pub async fn post_image(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
 } 
 
 #[post("/postvideo/<id>", format="video/x-matroska", data="<file>")]
-pub async fn upload_video(id: &str, file: Data<'_>) -> Result<Status, io::Error>{
+pub async fn upload_video(id: &str, file: Data<'_>) -> Result<Status, io::Error> {
   let video_path = format!("./temp/video{}.mkv", id);
   let _video_file = fs::File::create(Path::new(&video_path))?;
   let path: &Path = Path::new(&video_path);

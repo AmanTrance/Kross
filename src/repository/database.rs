@@ -14,7 +14,7 @@ pub struct MongoClient{
 }
 
 impl MongoClient{
-    pub fn init() -> Self{
+    pub fn init() -> Self {
         dotenv().ok();
         let db_key: String = env::var("MONGO_URI").unwrap();
         let uri: String = db_key;
@@ -24,28 +24,28 @@ impl MongoClient{
 
         MongoClient { client }
     }
-    pub async fn create_user(&self, data: &User, db_name: &str, collection: &str) -> Result<InsertOneResult, mongodb::error::Error>{
+    pub async fn create_user(&self, data: &User, db_name: &str, collection: &str) -> Result<InsertOneResult, mongodb::error::Error> {
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .insert_one(data)
         .await
     }
-    pub async fn find_user(&self, db_name: &str, collection: &str, id: &str) -> Result<Option<User>, mongodb::error::Error>{
+    pub async fn find_user(&self, db_name: &str, collection: &str, id: &str) -> Result<Option<User>, mongodb::error::Error> {
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .find_one(doc!{"id": id})
         .await
     }
-    pub async fn find_user_id(&self, db_name: &str, collection: &str, email: &String) -> Result<Option<User>, mongodb::error::Error>{
+    pub async fn find_user_id(&self, db_name: &str, collection: &str, email: &String) -> Result<Option<User>, mongodb::error::Error> {
         self.client
         .database(db_name)
         .collection::<User>(collection)
         .find_one(doc!{"email": email})
         .await
     }
-    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String) -> bool{
+    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String) -> bool {
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
             "email": email
         }).await{
@@ -54,7 +54,7 @@ impl MongoClient{
             Err(_) => false
         }
     }
-    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: &String, email: &String, password: &String) -> bool{
+    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: &String, email: &String, password: &String) -> bool {
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
             "name": name,
             "email": email,
@@ -65,7 +65,7 @@ impl MongoClient{
             Err(_) => false
         }
     }
-    pub async fn create_arena(&self, db_name: &str, collection: &str, data: &Arena<'_>) -> Result<InsertOneResult, mongodb::error::Error>{
+    pub async fn create_arena(&self, db_name: &str, collection: &str, data: &Arena<'_>) -> Result<InsertOneResult, mongodb::error::Error> {
         self
         .client
         .database(db_name)
@@ -73,7 +73,7 @@ impl MongoClient{
         .insert_one(data)
         .await
     }
-    pub async fn find_arena(&self, db_name: &str, collection: &str, id: &str) -> Result<Vec<Document>, mongodb::error::Error>{
+    pub async fn find_arena(&self, db_name: &str, collection: &str, id: &str) -> Result<Vec<Document>, mongodb::error::Error> {
         match self
         .client
         .database(db_name)

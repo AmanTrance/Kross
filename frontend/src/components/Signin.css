@@ -17,39 +17,32 @@
 
 label{
     padding-top: 20px;
-    color: chocolate;
-    text-shadow: 0px 5px black;
-    font-weight: 900;
+    color: gray;
+    font-weight: 800;
     font-family: 'Segoe UI';
-    font-size: x-large;
+    font-size: large;
     transition-property: all;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
+    cursor: pointer;
 }
 
 label:hover{
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 input{
     text-align: center;
     font-family: 'Segoe UI';
     font-weight: 900;
-    font-size: x-large;
+    font-size: large;
     height: 40px;
     width: 350px;
     border-radius: 10px;
-    border-width: 2px;
+    border-width: 1px;
+    border-color: gray;
     transition: all 500ms ease-in;
-}
-
-input:focus{
     outline: none;
-}
-
-input:hover{
-    border-width: 2px;
-    border-color: white;
 }
 
 #passcontainer{
@@ -80,18 +73,18 @@ input:hover{
     margin-top: 40px;
     color: black;
     text-shadow: 0px 0px 0px;
-    font-size: larger;
-    background-color: mediumturquoise;
+    font-size: medium;
+    background-color: gray;
     cursor: pointer;
-    height: 50px;
-    width: 150px;
+    height: 40px;
+    width: 120px;
     border-width: 0px;
-    border-radius: 25px;
+    border-radius: 20px;
     transition-property: all;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
 }
 
 #save-btn:hover{
-    background-color: teal;
+    background-color: lightgreen;
 }

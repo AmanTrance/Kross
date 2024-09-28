@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './Profile.css'
+import { useState, useEffect } from 'react';
+import './Profile.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const [id, setId] = useState(window.sessionStorage.getItem("id"));
@@ -11,30 +11,30 @@ function Profile() {
 
   useEffect(() => {
     let func = async () => {
-      if(id !== null){
+      if(id !== null) {
         const user_details = await axios.get(`http://127.0.0.1:8000/api/userdata/${id}`);
         const user_details_response = await user_details.data.name;
         setName(user_details_response);
         const response = await axios.get(`http://127.0.0.1:8000/api/getimg/${id}`);
-        if(response.status !== 404){
+        if(response.status !== 404) {
           document.getElementById('profile-pic').style.backgroundImage = `url('http://127.0.0.1:8000/api/getimg/${id}')`;
         }
-      }else{
+      } else {
         navigate('/error', {state:{
           msg: "Sign in first !!",
           path: "/"
         }})
       }
     }
+
     func();
-    
   }, [id])
 
   const edit = (e) => {
-    if (e.type === 'mouseover'){
+    if (e.type === 'mouseover') {
       setIcon(<i className="fa-solid fa-pen-to-square"></i>);
     }
-    else{
+    else {
       setIcon(null);
     }
   }
@@ -45,8 +45,8 @@ function Profile() {
         msg: "Sign in first!!",
         path: "/"
       }})
-    }else{
-      const response = await axios.post(`http://127.0.0.1:8000/api/image/${id}`, e.target.files[0], {headers:{
+    } else {
+        await axios.post(`http://127.0.0.1:8000/api/image/${id}`, e.target.files[0], {headers:{
         'Content-Type': 'image/jpeg'
       }});
       window.location.reload();

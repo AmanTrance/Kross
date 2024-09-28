@@ -1,6 +1,6 @@
-import './App.css'
-import Profile from './components/Profile.jsx'
-import Arena from './components/Arena.jsx'
+import './App.css';
+import Profile from './components/Profile.jsx';
+import Arena from './components/Arena.jsx';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -9,10 +9,6 @@ function App() {
   const [components, setComponents] = useState([]);
   const [click, setClick] = useState(false);
   useEffect(() => {
-    if(query === 0) {
-      setQuery(5);
-      return;
-    }; 
     const getArenas = async () => {
       let messages = [];
       const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`);
@@ -37,10 +33,10 @@ function App() {
 
   const handlePost = async () => {
     const text = document.getElementById('text-box').value;
-    const response = await axios.post('http://127.0.0.1:8000/api/arenapost', JSON.stringify({
+    const response = await axios.post('http://127.0.0.1:8000/api/arenapost', {
       owner_id: `${window.sessionStorage.getItem('id')}`,
       message: text
-    }), {headers: {
+    }, {headers: {
       'Content-Type': 'application/json'
     }});
     if (response.status === 201){
