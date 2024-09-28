@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
-  const [id, setId] = useState(window.sessionStorage.getItem("id"));
+  const [id, _] = useState(window.sessionStorage.getItem("id"));
   const [name, setName] = useState('User'); 
   const [icon, setIcon] = useState(null);
   const navigate = useNavigate();

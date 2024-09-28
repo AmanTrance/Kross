@@ -61,12 +61,13 @@ input{
     width: 25px;
     height: 20px;
     position: absolute;
-    z-index: 500;
+    z-index: 50;
     margin-left: 310px;
     margin-top: 12px;
     padding-left: 5px;
     border-style: solid;
     border-width: 0px 0px 0px 2px;
+    cursor: pointer;
 }
 
 #save-btn{
@@ -74,7 +75,7 @@ input{
     color: black;
     text-shadow: 0px 0px 0px;
     font-size: medium;
-    background-color: gray;
+    background-color: lightgray;
     cursor: pointer;
     height: 40px;
     width: 120px;

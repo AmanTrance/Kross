@@ -1,7 +1,7 @@
 #app-div{
     height: 100%;
     width: 100%;
-    background-color: coral;
+    background-color: lightgray;
 }
 
 .profile-user{
@@ -19,27 +19,28 @@
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: mediumorchid;
-    margin-top: 200px;
+    background-color: gray;
+    margin-top: 210px;
     position: fixed;
     margin-left: 450px;
     transition: all 500ms ease-in;
+    cursor: pointer;
     &:hover{
-        background-color: beige;
+        background-color: lightgray;
     }
 }
 
 .fa-solid.fa-plus{
     font-size: xx-large;
-    color: black;
+    color: lightgray;
     transition: all 500ms ease-in;
     &:hover{
-        color: blueviolet;
+        color: gray;
     }
 }
 
 #infinite-query{
-    background-color: coral;
+    background-color: lightgray;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -48,10 +49,12 @@
 
 #load{
     height: 80%;
-    width: 15%;
-    font-weight: 800;
+    width: 150px;
+    color: black;
+    font-weight: 900;
     border-width: 0px;
-    background-color: mediumorchid;
+    cursor: pointer;
+    background-color: lightgray;
     border-radius: 25px;
     transition-property: all;
     transition-duration: 500ms;
@@ -59,7 +62,7 @@
 }
 
 #load:hover{
-    background-color: palevioletred;
+    background-color: aliceblue;
 }
 
 #post-arena{
@@ -70,7 +73,7 @@
     width: 0px;
     grid-template-rows: 10fr 1fr;
     grid-template-columns: 1fr;
-    background-color: coral;
+    background-color: lightgray;
     position: fixed;
     z-index: 1000;
     transition-property: all;
@@ -79,18 +82,17 @@
 }
 
 #text-box{
+    background-color: lightgray;
     display: none;
     color: black;
     font-family: 'Segoe UI';
     font-weight: 900;
-    padding-top: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 10px;
-    border-width: 4px;
+    padding: 10px;
+    border-width: 2px;
+    border-color: gray;
     outline: none;
-    border-color: coral;
-    font-size: x-large;
+    border-color: gray;
+    font-size: large;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -103,17 +105,20 @@
 }
 
 #post-btn{
+    color: black;
     font-size: medium;
     font-family: 'Segoe UI';
-    font-weight: 600;
+    font-weight: 700;
     display: none;
     height: 60%;
     width: 40%;
     border-radius: 20px;
     border-width: 0px;
-    background-color: lightpink;
+    background-color: aliceblue;
     transition: all 500ms ease-in;
+    cursor: pointer;
     &:hover{
-        background-color: violet;
+        background-color: gray;
+        color: aliceblue;
     }
 }

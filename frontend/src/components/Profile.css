@@ -1,23 +1,22 @@
 .sandwich{
     width: 600px;
     position: fixed;
-    background-color: black;
+    background-color: lightgray;
     display: flex;
     height: 95px;
     border-style: solid;
-    border-width: 5px;
-    border-color: white;
+    border-width: 2px;
+    border-color: gray;
     border-radius: 10px;
     z-index: 50;
 }
 
 #span{
-    text-decoration: underline lightcyan;
+    text-decoration: underline gray;
     text-decoration-thickness: 6px;
-    color: aliceblue;
+    color: black;
     padding-top: 30px;
     padding-left: 15px;
-    text-shadow: 2px 2px black;
     font-size: large;
     font-weight: 900;
     font-family: 'Segoe UI';
