@@ -54,7 +54,7 @@
     font-weight: 900;
     border-width: 0px;
     cursor: pointer;
-    background-color: lightgray;
+    background-color: aliceblue;
     border-radius: 25px;
     transition-property: all;
     transition-duration: 500ms;
@@ -62,7 +62,7 @@
 }
 
 #load:hover{
-    background-color: aliceblue;
+    background-color: lightgreen;
 }
 
 #post-arena{

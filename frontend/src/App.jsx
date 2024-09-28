@@ -12,7 +12,7 @@ function App() {
     const getArenas = async () => {
       let messages = [];
       const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`);
-      if (response.data.data !== "Arena not filled"){
+      if (response?.data?.data !== "Arena not filled"){
         for (let msg of response.data.data){
           messages = [...messages, msg.message];
         }
@@ -21,6 +21,9 @@ function App() {
         setComponents((prev) => {
           return [...prev, <Arena key={i+query} msg={messages.length > i ? messages[i] : "No More Arenas"}/>];
         });
+        if(messages.length === i) {
+          break;
+        }
       }
    }
 
@@ -86,7 +89,7 @@ function App() {
         return component;
       })}
       <div id='infinite-query'>
-        <button id='load' onClick={load_more}>More...</button>
+        <button id='load' onClick={load_more}>More</button>
       </div>   
     </div>
   )

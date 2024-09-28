@@ -18,7 +18,7 @@
     padding-top: 30px;
     padding-left: 15px;
     font-size: large;
-    font-weight: 900;
+    font-weight: 800;
     font-family: 'Segoe UI';
 }
 
@@ -55,6 +55,7 @@
 }
 
 .fa-solid.fa-pen-to-square{
+    font-size: larger;
     color: aliceblue;
 }
 

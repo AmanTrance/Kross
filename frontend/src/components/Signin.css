@@ -27,22 +27,20 @@ label{
     cursor: pointer;
 }
 
-label:hover{
-    font-size: x-large;
-}
-
 input{
     text-align: center;
     font-family: 'Segoe UI';
     font-weight: 900;
-    font-size: large;
+    font-size: medium;
+    outine: none;
     height: 40px;
     width: 350px;
     border-radius: 10px;
-    border-width: 1px;
+    border: 2px solid;
     border-color: gray;
-    transition: all 500ms ease-in;
-    outline: none;
+    &:hover{
+        outline: none;
+    }
 }
 
 #passcontainer{
@@ -73,13 +71,12 @@ input{
 #save-btn{
     margin-top: 40px;
     color: black;
-    text-shadow: 0px 0px 0px;
-    font-size: medium;
-    background-color: lightgray;
+    font-size: small;
+    background-color: aliceblue;
     cursor: pointer;
     height: 40px;
     width: 120px;
-    border-width: 0px;
+    border: 0px solid;
     border-radius: 20px;
     transition-property: all;
     transition-duration: 500ms;

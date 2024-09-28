@@ -18,13 +18,7 @@ pub fn index() -> String {
 pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
   if db.user_exists("Interface", "User", &input.email).await {
     if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await{
-      let id = db
-      .find_user_id("Interface", "User", &input.email)
-      .await
-      .ok()
-      .unwrap()
-      .unwrap()
-      .id;
+      let id = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
       json!({"id": id})
     }
     else{
@@ -34,27 +28,15 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
     }
   }
   else{
-    db
-    .create_user(&input, "Interface", "User")
-    .await
-    .ok();
-    let id = db
-    .find_user_id("Interface", "User", &input.email)
-    .await
-    .ok()
-    .unwrap()
-    .unwrap()
-    .id;
+    db.create_user(&input, "Interface", "User").await.ok();
+    let id: String = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
     json!({"id": id})
   }
 }
 
 #[get("/userdata/<id>")]
 pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value {
-  let user =  db
-  .find_user("Interface", "User", id)
-  .await
-  .expect("User not Found");
+  let user =  db.find_user("Interface", "User", id).await.expect("Database crashed");
   if user.is_none(){
     json!({
       "user": false

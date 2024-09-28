@@ -1,6 +1,3 @@
-extern crate mongodb;
-extern crate dotenv;
-
 use mongodb::bson::{doc, Document};
 use mongodb::{results::InsertOneResult, sync::Client};
 use dotenv::dotenv;
@@ -18,9 +15,7 @@ impl MongoClient{
         dotenv().ok();
         let db_key: String = env::var("MONGO_URI").unwrap();
         let uri: String = db_key;
-        let client = Client::with_uri_str(uri)
-        .ok()
-        .unwrap();
+        let client: Client = Client::with_uri_str(uri).ok().unwrap();
 
         MongoClient { client }
     }
