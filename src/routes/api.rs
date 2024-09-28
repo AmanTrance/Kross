@@ -11,12 +11,29 @@ use std::path::Path;
 
 #[get("/")]
 pub fn index() -> String {
-    String::from("This is a Rust Server.")
+    String::from("This is a Rust Server")
 }
 
-#[post("/user", format="application/json", data="<input>")]
+#[post("/signup", format="application/json", data="<input>")]
+pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
+  if db.user_exists("Interface", "User", &input.email, &input.name).await{
+    json!({
+      "data": "username or email already exists"
+    })
+  } else {
+    db.create_user(&input, "Interface", "User").await.ok();
+    let id: String = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
+    json!({
+      "data": {
+        "id": id
+      }
+    })
+  }
+}
+
+#[post("/signin", format="application/json", data="<input>")]
 pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
-  if db.user_exists("Interface", "User", &input.email).await {
+  if db.user_exists("Interface", "User", &input.email, &input.name).await{
     if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await{
       let id = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
       json!({"id": id})
@@ -28,9 +45,9 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
     }
   }
   else{
-    db.create_user(&input, "Interface", "User").await.ok();
-    let id: String = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
-    json!({"id": id})
+    json!({
+      "id": "Wrong Credentials"
+    })
   }
 }
 

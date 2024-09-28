@@ -40,8 +40,9 @@ impl MongoClient{
         .find_one(doc!{"email": email})
         .await
     }
-    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String) -> bool {
+    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String, name: &String) -> bool {
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
+            "name": name,    
             "email": email
         }).await{
             Ok(Some(_)) => true,
