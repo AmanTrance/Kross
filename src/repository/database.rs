@@ -44,7 +44,7 @@ impl MongoClient{
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
             "name": name,    
             "email": email
-        }).await{
+        }).await {
             Ok(Some(_)) => true,
             Ok(None) => false,
             Err(_) => false
@@ -55,7 +55,7 @@ impl MongoClient{
             "name": name,
             "email": email,
             "password": password
-        }).await{
+        }).await {
             Ok(Some(_)) => true,
             Ok(None) => false,
             Err(_) => false
@@ -90,7 +90,7 @@ impl MongoClient{
             doc! {
                 "$limit": limit
             }
-            ]).await{
+            ]).await {
                 Ok(x) => x.try_collect::<Vec<Document>>().await,
                 Err(_) => Ok(Vec::<Document>::new())
             }

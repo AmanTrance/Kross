@@ -3,6 +3,18 @@
 version = 3
 
 [[package]]
+name = "Kross"
+version = "0.1.0"
+dependencies = [
+ "dotenv",
+ "mongodb",
+ "rocket",
+ "rocket_cors",
+ "serde",
+ "uuid",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1684,18 +1696,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 1.0.109",
-]
-
-[[package]]
-name = "server"
-version = "0.1.0"
-dependencies = [
- "dotenv",
- "mongodb",
- "rocket",
- "rocket_cors",
- "serde",
- "uuid",
 ]
 
 [[package]]

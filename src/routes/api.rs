@@ -16,7 +16,7 @@ pub fn index() -> String {
 
 #[post("/signup", format="application/json", data="<input>")]
 pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
-  if db.user_exists("Interface", "User", &input.email, &input.name).await{
+  if db.user_exists("Interface", "User", &input.email, &input.name).await {
     json!({
       "data": "username or email already exists"
     })
@@ -33,18 +33,16 @@ pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
 
 #[post("/signin", format="application/json", data="<input>")]
 pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
-  if db.user_exists("Interface", "User", &input.email, &input.name).await{
-    if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await{
+  if db.user_exists("Interface", "User", &input.email, &input.name).await {
+    if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await {
       let id = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
       json!({"id": id})
-    }
-    else{
+    } else {
       json!({
         "id": "Wrong Credentials"
       })
     }
-  }
-  else{
+  } else {
     json!({
       "id": "Wrong Credentials"
     })
@@ -57,8 +55,7 @@ pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value {
   if user.is_none(){
     json!({
       "user": false
-  })}
-  else{
+  })} else {
     json!(user)
   }
 }
@@ -84,28 +81,27 @@ pub async fn upload_video(id: &str, file: Data<'_>) -> Result<Status, io::Error>
 }
 
 #[get("/getimg/<id>")]
-pub async fn send_image(id: &str) -> Result<NamedFile, Status>{
+pub async fn send_image(id: &str) -> Result<NamedFile, Status> {
   let path_str = format!("./temp/image{}.jpg", id);
   let path = Path::new(path_str.as_str());
   if path.exists(){
     Ok(NamedFile::open(path).await.ok().unwrap())
-  }
-  else{
+  } else {
     Err(Status::new(404))
   }
 }
 
 #[post("/arenapost", format="application/json", data="<arena>")]
-pub async fn arena_post(db: &State<MongoClient>, arena: Json<Arena<'_>>) -> Status{
-  match db.create_arena("Interface", "Arena", &arena).await{
+pub async fn arena_post(db: &State<MongoClient>, arena: Json<Arena<'_>>) -> Status {
+  match db.create_arena("Interface", "Arena", &arena).await {
     Ok(_) => Status::new(201),
     Err(_) => Status::new(400)
   }
 }
 
 #[get("/getarena/<id>?<limit>")]
-pub async fn get_arena_details(db: &State<MongoClient>, id: &str, limit: u32) -> Value{
-  match db.find_arena("Interface", "Arena", id, limit).await{
+pub async fn get_arena_details(db: &State<MongoClient>, id: &str, limit: u32) -> Value {
+  match db.find_arena("Interface", "Arena", id, limit).await {
     Ok(x) => json!({
       "data": x
     }),

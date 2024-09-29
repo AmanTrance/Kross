@@ -1,12 +1,13 @@
 mod repository;
 mod routes;
 mod models;
+#[macro_use] 
+extern crate rocket;
+extern crate uuid;
 use repository::database::MongoClient;
 use rocket::http::Method;
 use rocket_cors::{AllowedOrigins, CorsOptions};
 use routes::api::{index, user_sign_in, user_sign_up, get_user, post_image, send_image, arena_post, get_arena_details, upload_video};
-extern crate uuid;
-#[macro_use] extern crate rocket;
 
 #[launch]
 fn rocket() -> _ {
