@@ -14,11 +14,11 @@ function Signup() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const response = await axios.post('http://127.0.0.1:8000/api/signup', apidata, {headers:{
+    const response = await axios.post('http://127.0.0.1:8000/api/signup', apidata, { headers: {
       'Content-Type': 'application/json'
     }});
-    if(typeof response.data.data === 'string') {
-        navigate('/error', {state: {
+    if (typeof response.data.data === 'string') {
+        navigate('/error', { state: {
             msg: 'Username or Email already exists',
             path: '/signup'
         }});
@@ -32,10 +32,10 @@ function Signup() {
   }
 
   const visibilityHandle = () => {
-    if(hide === true) {
+    if (hide === true) {
       setHide(false);
       document.getElementById('password').type = "text";
-    }else {
+     }else {
       setHide(true);
       document.getElementById('password').type = "password";
     }

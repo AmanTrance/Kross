@@ -40,19 +40,28 @@ impl MongoClient{
         .find_one(doc!{"email": email})
         .await
     }
-    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String, name: &String) -> bool {
-        match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
-            "name": name,    
-            "email": email
-        }).await {
-            Ok(Some(_)) => true,
-            Ok(None) => false,
-            Err(_) => false
+    pub async fn user_exists(&self, db_name: &str, collection: &str, email: &String, name: Option<&String>) -> bool {
+        if name.is_none() {
+            match self.client.database(db_name).collection::<User>(collection).find_one(doc!{    
+                "email": email
+            }).await {
+                Ok(Some(_)) => true,
+                Ok(None) => false,
+                Err(_) => false
+            }    
+        } else {
+            match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
+                "name": name.unwrap(),    
+                "email": email
+            }).await {
+                Ok(Some(_)) => true,
+                Ok(None) => false,
+                Err(_) => false
+            }    
         }
     }
-    pub async fn credentials_ok(&self, db_name: &str, collection: &str, name: &String, email: &String, password: &String) -> bool {
+    pub async fn credentials_ok(&self, db_name: &str, collection: &str, email: &String, password: &String) -> bool {
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
-            "name": name,
             "email": email,
             "password": password
         }).await {

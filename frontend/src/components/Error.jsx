@@ -6,11 +6,10 @@ function Error() {
     const navigate = useNavigate();
 
     const try_again = () => {
-        if(location.state === null) {
+        if (location.state === null) {
             navigate('/error');
-        }
-        else {
-            navigate(`${location.state?.path}`)
+        } else {
+            navigate(`${location.state?.path}`);
         }
     }
   return (

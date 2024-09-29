@@ -14,21 +14,21 @@ function App() {
     const getArenas = async () => {
       let messages = [];
       let ids = [];
-      const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`, {params: {
+      const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`, { params: {
         limit: query
       }});
-      if(response.data?.data !== "Arena not filled") {
-        for (let data of response.data.data){
+      if (response.data?.data !== "Arena not filled") {
+        for (let data of response.data.data) {
           messages = [...messages, data.message];
           ids = [...ids, data.owner_id];
         }
       }
       setComponents([]);
-      for(let i = 0; i < query; i++){
+      for (let i = 0; i < query; i++) {
         setComponents((prev) => {
-          return [...prev, <Arena key={uuid()} msg={messages.length > i ? messages[i] : "No More Arenas"} id={ids[i]}/>];
+          return [...prev, <Arena key={uuid()} msg={messages.length > i ? messages[i] : "No More Arenas"} id={messages.length > i ? ids[i] : null}/>];
         });
-        if(messages.length === i) {
+        if (messages.length === i) {
           break;
         }
       }
@@ -46,10 +46,10 @@ function App() {
     const response = await axios.post('http://127.0.0.1:8000/api/arenapost', {
       owner_id: `${window.sessionStorage.getItem('id')}`,
       message: text
-    }, {headers: {
+    }, { headers: {
       'Content-Type': 'application/json'
     }});
-    if (response.status === 201){
+    if (response.status === 201) {
       document.getElementById('text-box').value = "";
       setClick(false);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(0deg)';
@@ -61,14 +61,14 @@ function App() {
   }
 
   function handleClick(e) {
-    if(click === false) {
+    if (click === false) {
       setClick(true);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(45deg)';
       document.getElementById('text-box').style.display = 'initial';
       document.getElementById('post-btn').style.display = 'initial';
       document.getElementById('post-arena').style.height = '600px';
       document.getElementById('post-arena').style.width = '400px';
-    }else {
+    } else {
       setClick(false);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(0deg)';
       document.getElementById('post-arena').style.height = '0px';

@@ -10,6 +10,12 @@ pub struct User{
     pub password: String
 }
 
+#[derive(Debug, PartialEq, Deserialize)]
+pub struct SignInUser{
+    pub email: String,
+    pub password: String
+}
+
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Arena<'r>{
     pub owner_id: String,

@@ -1,5 +1,5 @@
 use crate::repository::database::MongoClient;
-use crate::models::models::{Arena, User};
+use crate::models::models::{Arena, SignInUser, User};
 use rocket::fs::NamedFile;
 use rocket::serde::json::Json;
 use rocket::serde::json::{json, Value};
@@ -16,7 +16,7 @@ pub fn index() -> String {
 
 #[post("/signup", format="application/json", data="<input>")]
 pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
-  if db.user_exists("Interface", "User", &input.email, &input.name).await {
+  if db.user_exists("Interface", "User", &input.email, Some(&input.name)).await {
     json!({
       "data": "username or email already exists"
     })
@@ -32,9 +32,9 @@ pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
 }
 
 #[post("/signin", format="application/json", data="<input>")]
-pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
-  if db.user_exists("Interface", "User", &input.email, &input.name).await {
-    if db.credentials_ok("Interface", "User", &input.name, &input.email, &input.password).await {
+pub async fn user_sign_in(db: &State<MongoClient>, input: Json<SignInUser>) -> Value {
+  if db.user_exists("Interface", "User", &input.email, None).await {
+    if db.credentials_ok("Interface", "User", &input.email, &input.password).await {
       let id = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
       json!({"id": id})
     } else {
@@ -52,7 +52,7 @@ pub async fn user_sign_in(db: &State<MongoClient>, input: Json<User>) -> Value {
 #[get("/userdata/<id>")]
 pub async fn get_user(db: &State<MongoClient>, id: &str) -> Value {
   let user =  db.find_user("Interface", "User", id).await.expect("Database crashed");
-  if user.is_none(){
+  if user.is_none() {
     json!({
       "user": false
   })} else {

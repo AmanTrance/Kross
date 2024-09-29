@@ -14,16 +14,15 @@ function Signin() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const data = await axios.post('http://127.0.0.1:8000/api/signin', apidata, {headers:{
+    const data = await axios.post('http://127.0.0.1:8000/api/signin', apidata, { headers: {
       'Content-Type': 'application/json'
     }});
     const id = data.data?.id;
-    if(id !== "Wrong Credentials") {
+    if (id !== "Wrong Credentials") {
       window.sessionStorage.setItem("id", id)
       navigate('/app')
-    }else{
-      navigate('/error', {state:
-        {
+    } else {
+      navigate('/error', { state: {
           msg:"Wrong Credentials",
           path: "/"
       }})
@@ -35,10 +34,10 @@ function Signin() {
   }
 
   const visibilityHandle = () => {
-    if(hide === true) {
+    if (hide === true) {
       setHide(false);
       document.getElementById('password').type = "text";
-    }else {
+    } else {
       setHide(true);
       document.getElementById('password').type = "password";
     }
@@ -47,8 +46,6 @@ function Signin() {
   return (
     <div id='form-box'>
         <form id ='main-form' onSubmit={submitform}>
-            <label htmlFor='name' >USERNAME</label><br/>
-            <input type='text' placeholder='Enter username' id='name' name='name' required/><br/>
             <label htmlFor='email'>EMAIL</label><br/>
             <input type='text' placeholder='Enter email' id='email' name='email' pattern='^[a-z]+@[a-z]+.com$' title='invalid email' required/><br/>
             <label htmlFor='password'>PASSWORD</label><br/>
