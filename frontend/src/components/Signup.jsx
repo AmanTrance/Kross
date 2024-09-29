@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import './Signin.css';
+import './Signup.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import img1 from '../public/eye-close.png';
 import img2 from '../public/eye-open.png';
 
-function Signin() {
+function Signup() {
   const [hide, setHide] = useState(true);
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Signin() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const data = await axios.post('http://127.0.0.1:8000/api/signin', apidata, {headers:{
+    const data = await axios.post('http://127.0.0.1:8000/api/signup', apidata, {headers:{
       'Content-Type': 'application/json'
     }});
     const id = data.data.id;
@@ -31,7 +31,7 @@ function Signin() {
   }
 
   const handleLink = () => {
-    navigate('/signup');
+    navigate('/');
   }
 
   const visibilityHandle = () => {
@@ -56,11 +56,11 @@ function Signin() {
               <input type='password' placeholder='Enter Password' id='password' name='password' required/><br/>
               <img src={hide ? img1 : img2} id='secure' onClick={visibilityHandle}></img>
             </div>
-            <a id='linkto' onClick={handleLink}>Don't have an account?</a>
-            <input type='submit' value="Sign in" id='save-btn'/>
+            <a id='linktoin' onClick={handleLink}>Already have an account?</a>
+            <input type='submit' value="Sign up" id='save-btn'/>
         </form>
     </div>
   )
 }
 
-export default Signin
+export default Signup
