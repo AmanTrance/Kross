@@ -3,23 +3,30 @@ import Profile from './components/Profile.jsx';
 import Arena from './components/Arena.jsx';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 function App() {
-  const [query, setQuery] = useState(0);
+  const [query, setQuery] = useState(5);
   const [components, setComponents] = useState([]);
   const [click, setClick] = useState(false);
+  
   useEffect(() => {
     const getArenas = async () => {
       let messages = [];
-      const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`);
-      if (response?.data?.data !== "Arena not filled"){
-        for (let msg of response.data.data){
-          messages = [...messages, msg.message];
+      let ids = [];
+      const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`, {params: {
+        limit: query
+      }});
+      if(response.data?.data !== "Arena not filled") {
+        for (let data of response.data.data){
+          messages = [...messages, data.message];
+          ids = [...ids, data.owner_id];
         }
       }
-      for(let i = 0; i < 5; i++){
+      setComponents([]);
+      for(let i = 0; i < query; i++){
         setComponents((prev) => {
-          return [...prev, <Arena key={i+query} msg={messages.length > i ? messages[i] : "No More Arenas"}/>];
+          return [...prev, <Arena key={uuid()} msg={messages.length > i ? messages[i] : "No More Arenas"} id={ids[i]}/>];
         });
         if(messages.length === i) {
           break;
@@ -85,9 +92,7 @@ function App() {
           </div>
         </div>
       </div>
-      {components.map((component) => {
-        return component;
-      })}
+      {components.map((component) => component)}
       <div id='infinite-query'>
         <button id='load' onClick={load_more}>More</button>
       </div>   

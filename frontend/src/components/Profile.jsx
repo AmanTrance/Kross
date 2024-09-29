@@ -13,7 +13,7 @@ function Profile() {
     let func = async () => {
       if(id !== null) {
         const user_details = await axios.get(`http://127.0.0.1:8000/api/userdata/${id}`);
-        const user_details_response = await user_details.data.name;
+        const user_details_response = user_details.data.name;
         setName(user_details_response);
         const response = await axios.get(`http://127.0.0.1:8000/api/getimg/${id}`);
         if(response.status !== 404) {

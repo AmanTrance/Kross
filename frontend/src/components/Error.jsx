@@ -10,15 +10,15 @@ function Error() {
             navigate('/error');
         }
         else {
-            navigate(`${location.state.path}`)
+            navigate(`${location.state?.path}`)
         }
     }
   return (
     <div className='main'>
         <div id='message-box'>
             Dear User! 
-            <text>{location.state === null ? "No Error" : location.state.msg}</text>
-            <button id='try-btn' on onClick={try_again}>Try Again</button>
+            <span>{location.state === null ? "No Error" : location.state.msg}</span>
+            <button id='try-btn' onClick={try_again}>Try Again</button>
         </div>
     </div>
   )

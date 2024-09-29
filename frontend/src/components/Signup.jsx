@@ -14,19 +14,16 @@ function Signup() {
     const form = document.getElementById('main-form');
     const formdata = new FormData(form);
     const apidata = Object.fromEntries(formdata);
-    const data = await axios.post('http://127.0.0.1:8000/api/signup', apidata, {headers:{
+    const response = await axios.post('http://127.0.0.1:8000/api/signup', apidata, {headers:{
       'Content-Type': 'application/json'
     }});
-    const id = data.data.id;
-    if(id !== "Wrong Credentials") {
-      window.sessionStorage.setItem("id", id)
-      navigate('/app')
-    }else{
-      navigate('/error', {state:
-        {
-          msg:"Wrong Credentials",
-          path: "/"
-      }})
+    if(typeof response.data.data === 'string') {
+        navigate('/error', {state: {
+            msg: 'Username or Email already exists',
+            path: '/signup'
+        }});
+    } else {
+        navigate('/');
     }
   }
 
@@ -48,12 +45,12 @@ function Signup() {
     <div id='form-box'>
         <form id ='main-form' onSubmit={submitform}>
             <label htmlFor='name' >USERNAME</label><br/>
-            <input type='text' placeholder='Enter Username' id='name' name='name' required/><br/>
+            <input type='text' placeholder='Enter username' id='name' name='name' required/><br/>
             <label htmlFor='email'>EMAIL</label><br/>
-            <input type='text' placeholder='Enter Email' id='email' name='email' pattern='^[a-z]+@[a-z]+.com$' title='invalid email' required/><br/>
+            <input type='text' placeholder='Enter email' id='email' name='email' pattern='^[a-z]+@[a-z]+.com$' title='invalid email' required/><br/>
             <label htmlFor='password'>PASSWORD</label><br/>
             <div id='passcontainer'>
-              <input type='password' placeholder='Enter Password' id='password' name='password' required/><br/>
+              <input type='password' placeholder='Enter password' id='password' name='password' required/><br/>
               <img src={hide ? img1 : img2} id='secure' onClick={visibilityHandle}></img>
             </div>
             <a id='linktoin' onClick={handleLink}>Already have an account?</a>

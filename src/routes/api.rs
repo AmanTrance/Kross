@@ -103,9 +103,9 @@ pub async fn arena_post(db: &State<MongoClient>, arena: Json<Arena<'_>>) -> Stat
   }
 }
 
-#[get("/getarena/<id>")]
-pub async fn get_arena_details(db: &State<MongoClient>, id: &str) -> Value{
-  match db.find_arena("Interface", "Arena", id).await{
+#[get("/getarena/<id>?<limit>")]
+pub async fn get_arena_details(db: &State<MongoClient>, id: &str, limit: u32) -> Value{
+  match db.find_arena("Interface", "Arena", id, limit).await{
     Ok(x) => json!({
       "data": x
     }),

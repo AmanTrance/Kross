@@ -9,17 +9,47 @@
 }
 
 #arena-box{
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     font-size: medium;
     font-family: 'Segoe UI';
     color: black;
     font-weight: 800;
     height: 95%;
     width: 550px;
-    padding: 5px;
+    padding: 6px;
     border-style: solid;
     border-width: 2px;
     border-color: gray;
     border-radius: 10px;
+}
+
+#arena-box::-webkit-scrollbar {
+    display: none; 
+  }
+
+#pfp{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+    background-size: cover;
+    background-position: center;    
+}
+
+#pfp_wrapper{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#pfp_username{
+    font-weight: 500;
+    margin-left: 10px;
+    color: black;
+    text-decoration: underline;
 }
 
 @media (max-width: 590px) {

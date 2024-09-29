@@ -69,19 +69,28 @@ impl MongoClient{
         .insert_one(data)
         .await
     }
-    pub async fn find_arena(&self, db_name: &str, collection: &str, id: &str) -> Result<Vec<Document>, mongodb::error::Error> {
+    pub async fn find_arena(&self, db_name: &str, collection: &str, id: &str, limit: u32) -> Result<Vec<Document>, mongodb::error::Error> {
         match self
         .client
         .database(db_name)
         .collection::<Arena>(collection)
         .aggregate([
             doc! {
+                "$sort": {
+                    "_id": -1
+                }
+            },
+            doc! {
                 "$match": {
                     "owner_id": {
                         "$ne": id
                     }
                 }
-            }]).await{
+            }, 
+            doc! {
+                "$limit": limit
+            }
+            ]).await{
                 Ok(x) => x.try_collect::<Vec<Document>>().await,
                 Err(_) => Ok(Vec::<Document>::new())
             }

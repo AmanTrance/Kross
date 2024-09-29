@@ -16,7 +16,7 @@ pub struct Arena<'r>{
     pub message: &'r str
 }
 
-fn get_id() -> String{
+fn get_id() -> String {
     let uuid = Uuid::new_v4().to_string();
     uuid
 }

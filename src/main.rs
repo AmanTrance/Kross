@@ -13,7 +13,7 @@ fn rocket() -> _ {
     let cors = CorsOptions::default()
     .allowed_origins(AllowedOrigins::all())
     .allowed_methods(
-        vec![Method::Get, Method::Post, Method::Patch, Method::Delete, Method::Options]
+        vec![Method::Get, Method::Post, Method::Patch, Method::Delete, Method::Put]
             .into_iter()
             .map(From::from)
             .collect(),
@@ -25,7 +25,6 @@ fn rocket() -> _ {
     rocket::build()
     .manage(db)
     .attach(cors.to_cors().unwrap())
-    .mount("/api", routes![index])
-    .mount("/api", routes![user_sign_up, user_sign_in, get_user])
+    .mount("/api", routes![index, user_sign_up, user_sign_in, get_user])
     .mount("/api", routes![post_image, upload_video, send_image, arena_post, get_arena_details])
 }
