@@ -9,6 +9,7 @@ serde = {version = "1.0.204", features = ["derive"]}
 rocket_cors = "0.6.0"
 uuid = {version = "1.10.0", features = ["v4", "rng"]}
 dotenv = "0.15.0"
+bcrypt = "0.15.1"
 
 [dependencies.mongodb]
 version = "3.0.1"

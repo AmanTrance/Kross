@@ -15,13 +15,13 @@ pub fn index() -> String {
 }
 
 #[post("/signup", format="application/json", data="<input>")]
-pub async fn user_sign_up(db: &State<MongoClient>, input: Json<User>) -> Value {
+pub async fn user_sign_up(db: &State<MongoClient>, mut input: Json<User>) -> Value {
   if db.user_exists("Interface", "User", &input.email, Some(&input.name)).await {
     json!({
       "data": "username or email already exists"
     })
   } else {
-    db.create_user(&input, "Interface", "User").await.ok();
+    db.create_user(&mut input, "Interface", "User").await.ok();
     let id: String = db.find_user_id("Interface", "User", &input.email).await.ok().unwrap().unwrap().id;
     json!({
       "data": {

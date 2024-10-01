@@ -3,6 +3,7 @@ use mongodb::{results::InsertOneResult, sync::Client};
 use dotenv::dotenv;
 use rocket::futures::TryStreamExt;
 use std::env;
+use bcrypt;
 
 use crate::models::models::{Arena, User};
 
@@ -19,7 +20,9 @@ impl MongoClient{
 
         MongoClient { client }
     }
-    pub async fn create_user(&self, data: &User, db_name: &str, collection: &str) -> Result<InsertOneResult, mongodb::error::Error> {
+    pub async fn create_user(&self, data: &mut User, db_name: &str, collection: &str) -> Result<InsertOneResult, mongodb::error::Error> {
+        let hashed_password: String = bcrypt::hash(data.password.clone(), 14).unwrap();
+        data.password = hashed_password;
         self.client
         .database(db_name)
         .collection::<User>(collection)
@@ -62,10 +65,20 @@ impl MongoClient{
     }
     pub async fn credentials_ok(&self, db_name: &str, collection: &str, email: &str, password: &str) -> bool {
         match self.client.database(db_name).collection::<User>(collection).find_one(doc!{
-            "email": email,
-            "password": password
+            "email": email
         }).await {
-            Ok(Some(_)) => true,
+            Ok(Some(user)) => {
+                match bcrypt::verify(password, &user.password) {
+                    Ok(ans) => {
+                        if ans == true {
+                            true
+                        } else {
+                            false
+                        }
+                    },
+                    Err(_) => false
+                }
+            },
             Ok(None) => false,
             Err(_) => false
         }
