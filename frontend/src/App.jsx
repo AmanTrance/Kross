@@ -8,30 +8,30 @@ import { v4 as uuid } from 'uuid';
 function App() {
   const [query, setQuery] = useState(5);
   const [components, setComponents] = useState([]);
-  const [click, setClick] = useState(false);
-  
+  const [click, setClick] = useState(false); 
+  const [height, setHeight] = useState(0);
+
   useEffect(() => {
     const getArenas = async () => {
-      let messages = [];
-      let ids = [];
+      setHeight(window.scrollY + 2000);
+      let userData = [];
       const response = await axios.get(`http://127.0.0.1:8000/api/getarena/${window.sessionStorage.getItem('id')}`, { params: {
         limit: query
       }});
       if (response.data?.data !== "Arena not filled") {
         for (let data of response.data.data) {
-          messages = [...messages, data.message];
-          ids = [...ids, data.owner_id];
+          userData = [...userData, {
+            msg: data.message,
+            id: data.owner_id
+          }];
         }
       }
       setComponents([]);
-      for (let i = 0; i < query; i++) {
-        setComponents((prev) => {
-          return [...prev, <Arena key={uuid()} msg={messages.length > i ? messages[i] : "No More Arenas"} id={messages.length > i ? ids[i] : null}/>];
-        });
-        if (messages.length === i) {
-          break;
-        }
-      }
+      for (let i = 0; i < userData.length; i++) {
+        setComponents((prev) => [...prev, <Arena key={uuid()} msg={userData[i].msg} id={userData[i].id} />]);
+      } 
+
+      window.scrollTo(0, height);
    }
 
    getArenas();
@@ -60,7 +60,7 @@ function App() {
     }
   }
 
-  function handleClick(e) {
+  function handleClick() {
     if (click === false) {
       setClick(true);
       document.querySelector('.fa-solid.fa-plus').style.transform = 'rotate(45deg)';

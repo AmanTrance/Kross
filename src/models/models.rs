@@ -18,8 +18,8 @@ pub struct SignInUser{
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct Arena<'r>{
-    pub owner_id: String,
-    pub message: &'r str
+    pub owner_id: &'r str,
+    pub message: String
 }
 
 fn get_id() -> String {

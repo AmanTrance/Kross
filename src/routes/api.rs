@@ -93,7 +93,7 @@ pub async fn send_image(id: &str) -> Result<NamedFile, Status> {
 
 #[post("/arenapost", format="application/json", data="<arena>")]
 pub async fn arena_post(db: &State<MongoClient>, arena: Json<Arena<'_>>) -> Status {
-  match db.create_arena("Interface", "Arena", &arena).await {
+  match db.create_arena("Interface", "Arena", arena.into_inner()).await {
     Ok(_) => Status::new(201),
     Err(_) => Status::new(400)
   }
