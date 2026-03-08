@@ -5,12 +5,12 @@ edition = "2021"
 
 [dependencies]
 rocket = {version = "0.5.1", features = ["json"]}
-serde = {version = "1.0.204", features = ["derive"]}
+serde = {version = "1.0.228", features = ["derive"]}
 rocket_cors = "0.6.0"
-uuid = {version = "1.10.0", features = ["v4", "rng"]}
+uuid = {version = "1.22.0", features = ["v4", "rng"]}
 dotenv = "0.15.0"
-bcrypt = "0.15.1"
+bcrypt = "0.19.0"
 
 [dependencies.mongodb]
-version = "3.0.1"
+version = "3.5.1"
 features = ["sync"]

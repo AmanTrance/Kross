@@ -1,25 +1,25 @@
-use serde::{Serialize, Deserialize};
 use crate::uuid::Uuid;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
-pub struct User{
-    #[serde(default="get_id")]
+pub struct User {
+    #[serde(default = "get_id")]
     pub id: String,
     pub name: String,
     pub email: String,
-    pub password: String
+    pub password: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize)]
-pub struct SignInUser{
+pub struct SignInUser {
     pub email: String,
-    pub password: String
+    pub password: String,
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
-pub struct Arena<'r>{
+pub struct Arena<'r> {
     pub owner_id: &'r str,
-    pub message: String
+    pub message: String,
 }
 
 fn get_id() -> String {
